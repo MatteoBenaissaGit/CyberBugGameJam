@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "CardData", menuName = "ScriptableObjects/CardData", order = 1)]
-public class CardData : ScriptableObject
+public class Card : MonoBehaviour
 {
     public Image cardImage;
     public int gA;
     public int gD;
     public int gP;
-    public string descriptionCard;
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        
+    }
 }

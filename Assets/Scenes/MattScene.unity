@@ -307,6 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 310567611}
   - component: {fileID: 310567612}
+  - component: {fileID: 310567613}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -342,8 +343,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _numberOfCardsRequiredPerCharacter: 0
-  CardDataList: []
-  CharacterDataList: []
+  CardDataList:
+  - {fileID: 11400000, guid: 7c2bafd2761dd044a92990a01f0e7568, type: 2}
+  - {fileID: 11400000, guid: a9222bc1ff8325d4cbee4cd8cb90088c, type: 2}
+  - {fileID: 11400000, guid: 0ce22cde0f53bf040b27579b3369c7a9, type: 2}
+  CharacterDataList:
+  - {fileID: 11400000, guid: 2dc9a52306c0a894dbb831aeab8ffbbe, type: 2}
+  _spawnerCard: {fileID: 310567613}
   _designerListTextMeshPro: {fileID: 1392999576}
   _artistListTextMeshPro: {fileID: 1111043663}
   _programmerListTextMeshPro: {fileID: 57067118}
@@ -355,6 +361,29 @@ MonoBehaviour:
   _programmingBackTempGauge: {fileID: 418273353}
   _gameState: 0
   _currentCharacter: {fileID: 0}
+--- !u!114 &310567613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310567609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3965bf94a4ae154fa10b511a5325512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 6417868913907789502, guid: e3c4b677adf561141a5171e3c1c697b5, type: 3}
+  nbCard: 5
+  cardPossible:
+  - {fileID: 11400000, guid: 7c2bafd2761dd044a92990a01f0e7568, type: 2}
+  - {fileID: 11400000, guid: a9222bc1ff8325d4cbee4cd8cb90088c, type: 2}
+  - {fileID: 11400000, guid: 0ce22cde0f53bf040b27579b3369c7a9, type: 2}
+  - {fileID: 11400000, guid: 7c2bafd2761dd044a92990a01f0e7568, type: 2}
+  - {fileID: 11400000, guid: 0ce22cde0f53bf040b27579b3369c7a9, type: 2}
+  OffsetX: -3
+  OffsetY: -1.5
+  OffsetZ: 0
 --- !u!1001 &418273350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -715,7 +744,7 @@ GameObject:
   - component: {fileID: 818163067}
   - component: {fileID: 818163066}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +810,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818163065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0073, y: -0.0697, z: 0}
+  m_LocalPosition: {x: -0.0073, y: -0.0697, z: 24.7}
   m_LocalScale: {x: 17.963663, y: 10.140064, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

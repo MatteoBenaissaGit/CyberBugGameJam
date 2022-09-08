@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     private List<CharacterData> _charactersArtistList = new List<CharacterData>();
     private List<CharacterData> _charactersProgrammerList = new List<CharacterData>();
 
+    [Header("References")] 
+    [SerializeField] private SpawnerCard _spawnerCard;
+    
     [Header("TextMesh References")]
     [SerializeField] private TextMeshProUGUI _designerListTextMeshPro;
     [SerializeField] private TextMeshProUGUI _artistListTextMeshPro;
@@ -66,6 +69,8 @@ public class GameManager : MonoBehaviour
 
     private void ChangeState(GameState gameState)
     {
+        _gameState = gameState;
+        
         switch (gameState)
         {
             case GameState.Start:
@@ -78,6 +83,7 @@ public class GameManager : MonoBehaviour
                 CardSpawn();
                 break;
             case GameState.WaitingForInput:
+                print("Waiting For Input");
                 break;
             case GameState.CharacterRoleAttribution:
                 CharacterRoleAttribution();
@@ -85,15 +91,16 @@ public class GameManager : MonoBehaviour
             case GameState.CharacterExit:
                 CharacterExit();
                 break;
+            case GameState.End:
+                EndGame();
+                break;
         }
-
-        _gameState = gameState;
     }
 
     private void Update()
     {
         if (_gameState != GameState.WaitingForInput) return;
-        CardSelectionAndActivation();
+            CardSelectionAndActivation();
     }
 
     private void GameStart()
@@ -115,11 +122,18 @@ public class GameManager : MonoBehaviour
     {
         print("Character Spawn");
         //get a random character and make it spawn
-        CharacterDataList[0] = _currentCharacter;
+        if (CharacterDataList.Count>0)
+            CharacterDataList[0] = _currentCharacter;
+        else
+        {
+            print("no more character");
+            //end the game
+            ChangeState(GameState.End);
+        }
         
         //Anim character
 
-        CardSpawn();
+        ChangeState(GameState.CardSpawn);
     }
     
     private void CardSpawn()
@@ -127,6 +141,7 @@ public class GameManager : MonoBehaviour
         print("Card Spawning");
         
         //card spawning animation (other script)
+        _spawnerCard.SpawnCard();
         
         //temporary ! step to the next state directly instead of waiting for the card spawn
         ChangeState(GameState.WaitingForInput);
@@ -135,29 +150,31 @@ public class GameManager : MonoBehaviour
     private void CardSelectionAndActivation()
     {
         Card cardComponent = null;
+        CardSelectAnimation cardSelectAnimationComponent = null;
         
         //card reveal if mouse over card
-        RaycastHit selectionHit;
-        Ray selectionRay = Camera.main.ScreenPointToRay(Input.mousePosition); 
-        if ( Physics.Raycast (selectionRay,out selectionHit,100.0f)) {
-            print("You clicked the " + selectionHit.transform.name);
+        Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero, Mathf.Infinity);
+
+        if (hit) 
+        {
             //get the card component and check if it isn't null
-            if (selectionHit.collider.GetComponent<Card>() != null)
+            if (hit.collider.GetComponent<Card>() != null)
             {
-                CardSelection(cardComponent);
+                //card select
+                cardSelectAnimationComponent = hit.collider.GetComponent<CardSelectAnimation>();
+                cardSelectAnimationComponent.CardSelect();
+                cardSelectAnimationComponent.DetailedCard.transform.rotation = Quaternion.Euler(Vector3.zero);
+
                 //card activation if click
                 if (Input.GetMouseButtonDown(0))
                 {
-                    cardComponent = selectionHit.collider.GetComponent<Card>();
+                    print($"Card Activated {hit.collider.name}");
+                    cardComponent = hit.collider.GetComponent<Card>();
                     CardActivation(cardComponent);
                 }
             }
         }
-    }
-
-    private void CardSelection(Card cardComponent)
-    {
-        //show the card description with animation
     }
 
     private void CardActivation(Card cardComponent)
@@ -234,6 +251,11 @@ public class GameManager : MonoBehaviour
         }
         textMesh.text = listText;
     }
+
+    private void EndGame()
+    {
+        print("end game");
+    }
 }
 
 public enum GameState
@@ -243,6 +265,7 @@ public enum GameState
     CardSpawn,
     WaitingForInput,
     CharacterRoleAttribution,
-    CharacterExit
+    CharacterExit,
+    End
 }
 

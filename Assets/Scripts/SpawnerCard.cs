@@ -11,46 +11,42 @@ public class SpawnerCard : MonoBehaviour
     private int coordZ = 0;
     private float rotationZ = 0f;
     public GameObject card;
-    public int nbCard;
+    [Range(0,7)] public int nbCard;
     public List<CardData> cardPossible;
 
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int OffsetX = -1;
+    [SerializeField] private float OffsetY = 0f;
+    [SerializeField] private int OffsetZ = 0;
 
-    void Update()
+    public void SpawnCard()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SpawnCard();
-        }
-    }
-
-    void SpawnCard()
-    {
-        for(int i =0; i<nbCard; i++)
+        for(int i = 0; i<nbCard; i++)
         {
             whoSpawn = WhatCardSpawn();
-            if (i % 2 == 1 && i !=0)
+            if (i % 2 == 1)
             {
-                coordX = (i / 2) + 1;
+                coordX = (i / 2) + 1 + OffsetX;
                 rotationZ = ((i / 2) + 1)*(-10);
                 if(i == 1){
-                    coordY=-3.14f;
+                    coordY=-3.14f + OffsetY;
                 }
                 else if(i == 3){
-                    coordY=-3.46f;
+                    coordY=-3.46f + OffsetY;
                 }
                 else if(i == 5){
-                    coordY=-4f;
+                    coordY=-4f + OffsetY;
                 }
-                coordZ+=1;
+                coordZ+=1 + OffsetZ;
             }
-            if(i%2 == 0 && i != 0)
+            if(i%2 == 0)
             {
-                coordX = i / (-2);
+                coordX = i / (-2) + OffsetX;
                 rotationZ = i / (-2)*(-10);
+            }
+            if (i == 0)
+            {
+                coordX = i + OffsetX;
+                coordY = -3f + OffsetY;
             }
             GameObject cardPrefab = Instantiate(card, new Vector3(coordX,coordY,coordZ), Quaternion.identity);
             cardPrefab.transform.Rotate(new Vector3(0, 0, rotationZ));

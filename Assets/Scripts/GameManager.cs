@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
+    
     private void UpdateListsVisual(List<CharacterData> characterList, TextMeshProUGUI textMesh)
     {
         string listText = string.Empty;

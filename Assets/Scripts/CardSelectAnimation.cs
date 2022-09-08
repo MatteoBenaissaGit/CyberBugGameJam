@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class CardSelectAnimation : MonoBehaviour
 
 {
     // Show and hide Description Variables
-    [SerializeField] private GameObject _detailsCard;
+    public GameObject DetailedCard;
     public bool IsSelected = true;
 
     // Move card Variables
@@ -15,19 +16,42 @@ public class CardSelectAnimation : MonoBehaviour
     public Transform TargetCard;
     [SerializeField] private float MoveTime; 
     
+    const float moveRangeY = .2f;
+    const float moveSpeed = .2f;
 
     void Start() {
-        _detailsCard.SetActive(false);
+        DetailedCard.SetActive(false);
     }
 
     public void CardSelect() {
+        if (IsSelected) return;
+    
         IsSelected = true;
-        _detailsCard.SetActive(true);
+        
+        transform.DOComplete();
+        Vector3 movePositionSelect =
+            new Vector3(transform.position.x, transform.position.y + moveRangeY, transform.position.z);
+        transform.DOMove(movePositionSelect, moveSpeed);
+        
+        DetailedCard.SetActive(true);
     }
 
-    public void CardDeselect() {
+    private void OnMouseExit()
+    {
+        CardDeselect();
+        
+    }
+
+    private void CardDeselect() 
+    {
         IsSelected = false;
-        _detailsCard.SetActive(false);
+        
+        transform.DOComplete();
+        Vector3 movePositionSelect =
+            new Vector3(transform.position.x, transform.position.y - moveRangeY, transform.position.z);
+        transform.DOMove(movePositionSelect, moveSpeed);
+        
+        DetailedCard.SetActive(false);
     }
 
     public void CardMove() {

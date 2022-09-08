@@ -500,8 +500,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 873bc60c67b15254e9a2fc64d1638f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _detailsCard: {fileID: 6367818727532164589}
+  DetailedCard: {fileID: 6367818727532164589}
   IsSelected: 0
+  _movingCard: {fileID: 0}
+  TargetCard: {fileID: 0}
+  MoveTime: 2
 --- !u!114 &8173907930416618885
 MonoBehaviour:
   m_ObjectHideFlags: 0

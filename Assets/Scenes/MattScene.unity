@@ -342,7 +342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd057189b4e793047aa79079ca1eaac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberOfCardsRequiredPerCharacter: 0
+  _numberOfCardsRequiredPerCharacter: 3
+  _fillAmountTime: 1.5
   CardDataList:
   - {fileID: 11400000, guid: 7c2bafd2761dd044a92990a01f0e7568, type: 2}
   - {fileID: 11400000, guid: a9222bc1ff8325d4cbee4cd8cb90088c, type: 2}

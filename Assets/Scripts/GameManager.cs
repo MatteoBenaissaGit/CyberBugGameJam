@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Parameters")] 
     [SerializeField] private int _numberOfCardsRequiredPerCharacter = 3;
+    [SerializeField] private float _fillAmountTime = 1.5f;
     private int _currentNumberOfCardSelected;
     
     [Header("Data list")]
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
         print("Character Spawn");
         //get a random character and make it spawn
         if (CharacterDataList.Count>0)
-            CharacterDataList[0] = _currentCharacter;
+            _currentCharacter = CharacterDataList[0];
         else
         {
             print("no more character");
@@ -147,6 +148,7 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.WaitingForInput);
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private void CardSelectionAndActivation()
     {
         Card cardComponent = null;
@@ -161,8 +163,10 @@ public class GameManager : MonoBehaviour
             //get the card component and check if it isn't null
             if (hit.collider.GetComponent<Card>() != null)
             {
-                //card select
+                cardComponent = hit.collider.GetComponent<Card>();
                 cardSelectAnimationComponent = hit.collider.GetComponent<CardSelectAnimation>();
+                
+                //card select
                 cardSelectAnimationComponent.CardSelect();
                 cardSelectAnimationComponent.DetailedCard.transform.rotation = Quaternion.Euler(Vector3.zero);
 
@@ -170,7 +174,6 @@ public class GameManager : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     print($"Card Activated {hit.collider.name}");
-                    cardComponent = hit.collider.GetComponent<Card>();
                     CardActivation(cardComponent);
                 }
             }
@@ -182,12 +185,15 @@ public class GameManager : MonoBehaviour
         _currentNumberOfCardSelected++;
         
         //gauges modification
+        print(_currentCharacter);
         _currentCharacter.AddValueToGauges(cardComponent.gD,cardComponent.gA,cardComponent.gP);
         GaugeAnimation();
         
         //check if the good amount of cards are selected
         if (_currentNumberOfCardSelected >= _numberOfCardsRequiredPerCharacter)
             ChangeState(GameState.CharacterRoleAttribution);
+        
+        //move card to selected card spot
     }
 
     private void GaugeAnimation()
@@ -198,10 +204,12 @@ public class GameManager : MonoBehaviour
         _programmingBackTempGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Programmer] / 100;
         
         //DOTween effect with real gauge right after
-        const float fillAmountTime = .5f;
-        _designGauge.DOFillAmount(_designBackTempGauge.fillAmount, fillAmountTime);
-        _artGauge.DOFillAmount(_artBackTempGauge.fillAmount, fillAmountTime);
-        _programmingGauge.DOFillAmount(_programmingBackTempGauge.fillAmount, fillAmountTime);
+        _designGauge.DOComplete();
+        _artGauge.DOComplete();
+        _programmingGauge.DOComplete();
+        _designGauge.DOFillAmount(_designBackTempGauge.fillAmount, _fillAmountTime);
+        _artGauge.DOFillAmount(_artBackTempGauge.fillAmount, _fillAmountTime);
+        _programmingGauge.DOFillAmount(_programmingBackTempGauge.fillAmount, _fillAmountTime);
     }
 
     private void CharacterRoleAttribution()
@@ -218,6 +226,8 @@ public class GameManager : MonoBehaviour
         //character exit animation
         
         CharacterDataList.Remove(_currentCharacter);
+        
+        //remove cards
         
         ChangeState(GameState.CharacterSpawn);
     }

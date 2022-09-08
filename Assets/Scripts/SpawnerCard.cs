@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class SpawnerCard : MonoBehaviour
@@ -20,6 +21,9 @@ public class SpawnerCard : MonoBehaviour
 
     public void SpawnCard()
     {
+        float animationSpeed = .5f;
+        float startOffsetY = -1.5f;
+        
         for(int i = 0; i<nbCard; i++)
         {
             whoSpawn = WhatCardSpawn();
@@ -48,12 +52,27 @@ public class SpawnerCard : MonoBehaviour
                 coordX = i + OffsetX;
                 coordY = -3f + OffsetY;
             }
-            GameObject cardPrefab = Instantiate(card, new Vector3(coordX,coordY,coordZ), Quaternion.identity);
+            
+            Vector3 endPosition = new Vector3(coordX, coordY, coordZ);
+            GameObject cardPrefab = Instantiate(card, endPosition, Quaternion.identity);
             cardPrefab.transform.Rotate(new Vector3(0, 0, rotationZ));
+            
             cardPrefab.GetComponent<Card>().gA = cardDataAlea.gA;
             cardPrefab.GetComponent<Card>().gD = cardDataAlea.gD;
             cardPrefab.GetComponent<Card>().gP = cardDataAlea.gP;
+            
+            //animation card (slow speed for each card to have a delayed effect)
+            var position = cardPrefab.transform.position;
+            Vector3 startPosition = new Vector3(position.x, position.y + startOffsetY, position.z);
+            position = startPosition;
+            cardPrefab.transform.position = position;
+            cardPrefab.transform.DOComplete();
+            cardPrefab.transform.DOMove(new Vector3(coordX, coordY, coordZ), animationSpeed);
 
+            startOffsetY -= 2f;
+            animationSpeed += .3f;
+            
+            //associate data with card description text
         }
     }
 

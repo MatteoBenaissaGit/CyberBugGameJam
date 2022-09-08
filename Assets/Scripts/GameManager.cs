@@ -33,12 +33,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _programmerListTextMeshPro;
 
     [Header("Gauges References")]
-    [SerializeField] private Image _designGauge;
-    [SerializeField] private Image _artGauge;
-    [SerializeField] private Image _programmingGauge;
-    [SerializeField] private Image _designBackTempGauge;
-    [SerializeField] private Image _artBackTempGauge;
-    [SerializeField] private Image _programmingBackTempGauge;
+    [Space(5)] [SerializeField] private Image _designGauge;
+    [SerializeField] private Image _designBackGauge;
+    [SerializeField] private Image _designTempGauge;
+    [Space(5)] [SerializeField] private Image _artGauge;
+    [SerializeField] private Image _artBackGauge;
+    [SerializeField] private Image _artTempGauge;
+    [Space(5)] [SerializeField] private Image _programmingGauge;
+    [SerializeField] private Image _programmingBackGauge;
+    [SerializeField] private Image _programmingTempGauge;
+
+    [Header("CardSpot References")] 
+    [SerializeField] private List<Transform> _cardSpotList = new List<Transform>();
 
     [Header("Debug")] 
     [SerializeField] private GameState _gameState;
@@ -55,12 +61,18 @@ public class GameManager : MonoBehaviour
     private void UIReset()
     {
         //gauges
+        //design
         _designGauge.fillAmount = 0;
+        _designBackGauge.fillAmount = 0;
+        _designTempGauge.fillAmount = 0;
+        //art
         _artGauge.fillAmount = 0;
+        _artBackGauge.fillAmount = 0;
+        _artTempGauge.fillAmount = 0;
+        //programming
         _programmingGauge.fillAmount = 0;
-        _designBackTempGauge.fillAmount = 0;
-        _artBackTempGauge.fillAmount = 0;
-        _programmingBackTempGauge.fillAmount = 0;
+        _programmingBackGauge.fillAmount = 0;
+        _programmingTempGauge.fillAmount = 0;
         
         //text
         _designerListTextMeshPro.text = "";
@@ -84,7 +96,6 @@ public class GameManager : MonoBehaviour
                 CardSpawn();
                 break;
             case GameState.WaitingForInput:
-                print("Waiting For Input");
                 break;
             case GameState.CharacterRoleAttribution:
                 CharacterRoleAttribution();
@@ -106,7 +117,6 @@ public class GameManager : MonoBehaviour
 
     private void GameStart()
     {
-        print("Game Start");
         //starting animation or text ?
 
         const float secondsToStartCharacterSpawn = 2f;
@@ -121,7 +131,6 @@ public class GameManager : MonoBehaviour
 
     private void CharacterSpawn()
     {
-        print("Character Spawn");
         //get a random character and make it spawn
         if (CharacterDataList.Count>0)
             _currentCharacter = CharacterDataList[0];
@@ -139,10 +148,8 @@ public class GameManager : MonoBehaviour
     
     private void CardSpawn()
     {
-        print("Card Spawning");
-        
         //card spawning animation (other script)
-        _spawnerCard.SpawnCard();
+        _spawnerCard.CardSpawning();
         
         //temporary ! step to the next state directly instead of waiting for the card spawn
         ChangeState(GameState.WaitingForInput);
@@ -167,17 +174,42 @@ public class GameManager : MonoBehaviour
                 cardSelectAnimationComponent = hit.collider.GetComponent<CardSelectAnimation>();
                 
                 //card select
+                cardSelectAnimationComponent.GameManager = this;
                 cardSelectAnimationComponent.CardSelect();
                 cardSelectAnimationComponent.DetailedCard.transform.rotation = Quaternion.Euler(Vector3.zero);
+                CardSelectionGaugeTempShow(cardComponent);
 
                 //card activation if click
                 if (Input.GetMouseButtonDown(0))
                 {
-                    print($"Card Activated {hit.collider.name}");
                     CardActivation(cardComponent);
                 }
             }
         }
+    }
+
+    private void CardSelectionGaugeTempShow(Card cardData)
+    {
+        const float fillAnimationTime = .2f;
+        //gauges
+        //design
+        var designTempFillAmount = _designGauge.fillAmount + ((float)cardData.DesignValue / 100);
+        _designTempGauge.DOFillAmount(designTempFillAmount, fillAnimationTime);
+        //art
+        var artTempFillAmount = _artGauge.fillAmount + ((float)cardData.ArtValue / 100);
+        _artTempGauge.DOFillAmount(artTempFillAmount, fillAnimationTime);
+        //programming
+        var programmingTempFillAmount = _programmingGauge.fillAmount + ((float)cardData.ProgrammerValue / 100);
+        _programmingTempGauge.DOFillAmount(programmingTempFillAmount, fillAnimationTime);
+    }
+
+    public void TempGaugeReset()
+    {
+        const float fillAnimationTime = .2f;
+        
+        _designTempGauge.DOFillAmount(_designGauge.fillAmount, fillAnimationTime);
+        _artTempGauge.DOFillAmount(_artGauge.fillAmount, fillAnimationTime);
+        _programmingTempGauge.DOFillAmount(_programmingGauge.fillAmount, fillAnimationTime);
     }
 
     private void CardActivation(Card cardComponent)
@@ -185,8 +217,7 @@ public class GameManager : MonoBehaviour
         _currentNumberOfCardSelected++;
         
         //gauges modification
-        print(_currentCharacter);
-        _currentCharacter.AddValueToGauges(cardComponent.gD,cardComponent.gA,cardComponent.gP);
+        _currentCharacter.AddValueToGauges(cardComponent.DesignValue,cardComponent.ArtValue,cardComponent.ProgrammerValue);
         GaugeAnimation();
         
         //check if the good amount of cards are selected
@@ -194,22 +225,23 @@ public class GameManager : MonoBehaviour
             ChangeState(GameState.CharacterRoleAttribution);
         
         //move card to selected card spot
+        
     }
 
     private void GaugeAnimation()
     {
         //white instant effect behind gauges
-        _designBackTempGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Designer] / 100;
-        _artBackTempGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Artist] / 100;
-        _programmingBackTempGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Programmer] / 100;
+        _designBackGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Designer] / 100;
+        _artBackGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Artist] / 100;
+        _programmingBackGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Programmer] / 100;
         
         //DOTween effect with real gauge right after
         _designGauge.DOComplete();
         _artGauge.DOComplete();
         _programmingGauge.DOComplete();
-        _designGauge.DOFillAmount(_designBackTempGauge.fillAmount, _fillAmountTime);
-        _artGauge.DOFillAmount(_artBackTempGauge.fillAmount, _fillAmountTime);
-        _programmingGauge.DOFillAmount(_programmingBackTempGauge.fillAmount, _fillAmountTime);
+        _designGauge.DOFillAmount(_designBackGauge.fillAmount, _fillAmountTime);
+        _artGauge.DOFillAmount(_artBackGauge.fillAmount, _fillAmountTime);
+        _programmingGauge.DOFillAmount(_programmingBackGauge.fillAmount, _fillAmountTime);
     }
 
     private void CharacterRoleAttribution()

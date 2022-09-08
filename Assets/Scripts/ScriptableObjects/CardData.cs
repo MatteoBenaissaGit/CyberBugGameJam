@@ -6,9 +6,13 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "CardData", menuName = "ScriptableObjects/CardData", order = 1)]
 public class CardData : ScriptableObject
 {
-    public Image cardImage;
-    public int gA;
-    public int gD;
-    public int gP;
-    public string descriptionCard;
+    [Header("Card")]
+    public string CardName;
+    public string CardDescription;
+    public Sprite cardImageSprite;
+    
+    [Header("Values")]
+    public int DesignValue;
+    public int ArtValue;
+    public int ProgrammingValue;
 }

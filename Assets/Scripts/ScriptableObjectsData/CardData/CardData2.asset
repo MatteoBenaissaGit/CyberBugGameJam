@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14134127ae7130d488acca1c3eb64a1a, type: 3}
-  m_Name: CardData 1
+  m_Name: CardData2
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 0}
-  gA: 5
-  gD: 5
-  gP: 5
-  descriptionCard: "Holla qu\xE9 tal ?"
+  CardName: Card2
+  CardDescription: card2 description
+  cardImageSprite: {fileID: 0}
+  DesignValue: 32
+  ArtValue: 5
+  ProgrammingValue: 12

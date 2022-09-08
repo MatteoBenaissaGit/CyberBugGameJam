@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CardSelectAnimation : MonoBehaviour
 
 {
+    // Show and hide Description Variables
     [SerializeField] private GameObject _detailsCard;
     public bool IsSelected = true;
 
+    // Move card Variables
+    [SerializeField] private Transform _movingCard;
+    [SerializeField] private Transform TargetCard;
+    [SerializeField] private float MoveTime; 
+    
+
     void Start() {
         _detailsCard.SetActive(false);
+        CardMove();
     }
 
     public void CardSelect() {
@@ -21,4 +30,12 @@ public class CardSelectAnimation : MonoBehaviour
         IsSelected = false;
         _detailsCard.SetActive(false);
     }
+
+    public void CardMove() {
+
+        _movingCard.DOMove(new Vector3(TargetCard.localPosition.x,TargetCard.localPosition.y,0),MoveTime);
+
+    }
+
+
 }

@@ -171,6 +171,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 82e7a01293e4fb4429a48714f90af372, type: 2}
   _characterDataList:
   - {fileID: 11400000, guid: 2dc9a52306c0a894dbb831aeab8ffbbe, type: 2}
+  _designerListTextMeshPro: {fileID: 0}
 --- !u!1 &631493063
 GameObject:
   m_ObjectHideFlags: 0

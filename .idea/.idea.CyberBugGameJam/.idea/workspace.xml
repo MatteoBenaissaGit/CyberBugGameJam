@@ -25,7 +25,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "RiderCSharpLiveTemplatesSettingsId",
+    "settings.editor.selected.configurable": "reference.idesettings.emmet",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -67,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1662626711291</updated>
-      <workItem from="1662626716612" duration="1643000" />
+      <workItem from="1662626716612" duration="3626000" />
     </task>
     <servers />
   </component>
@@ -90,5 +90,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

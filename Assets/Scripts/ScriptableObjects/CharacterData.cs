@@ -9,7 +9,7 @@ public class CharacterData : ScriptableObject
     public string CharacterName;
     public Role CharacterPredefinedRole;
 
-    private Dictionary<Role, int> RolesGaugesDictionary = new Dictionary<Role, int>()
+    public Dictionary<Role, int> RolesGaugesDictionary = new Dictionary<Role, int>()
     {
         { Role.Designer, 0 },
         { Role.Artist, 0},
@@ -21,6 +21,11 @@ public class CharacterData : ScriptableObject
         RolesGaugesDictionary[Role.Designer] += designValue;
         RolesGaugesDictionary[Role.Artist] += artValue;
         RolesGaugesDictionary[Role.Programmer] += progValue;
+        
+        //guard if it gets over 100
+        if (RolesGaugesDictionary[Role.Designer] > 100) RolesGaugesDictionary[Role.Designer] = 100;
+        if (RolesGaugesDictionary[Role.Artist] > 100) RolesGaugesDictionary[Role.Artist] = 100;
+        if (RolesGaugesDictionary[Role.Programmer] > 100) RolesGaugesDictionary[Role.Programmer] = 100;
     }
 
     public Role? CharacterRoleGiver()

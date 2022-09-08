@@ -12,13 +12,12 @@ public class CardSelectAnimation : MonoBehaviour
 
     // Move card Variables
     [SerializeField] private Transform _movingCard;
-    [SerializeField] private Transform TargetCard;
+    public Transform TargetCard;
     [SerializeField] private float MoveTime; 
     
 
     void Start() {
         _detailsCard.SetActive(false);
-        CardMove();
     }
 
     public void CardSelect() {

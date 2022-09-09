@@ -158,7 +158,9 @@ public class CardSpawnerAndHandController : MonoBehaviour
         for (int i = 0; i < _inHandCardList.Count; i++)
         {
             const float moveAnimationSpeed = .2f;
+            _inHandCardList[i].transform.rotation = Quaternion.identity;
             var newEndPosition = CardEndPosition(i);
+            _inHandCardList[i].transform.Rotate(new Vector3(0, 0, _rotationZ));
             _inHandCardList[i].transform.DOMove(newEndPosition, moveAnimationSpeed);
         }
     }

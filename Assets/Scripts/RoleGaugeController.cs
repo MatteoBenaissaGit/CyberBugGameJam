@@ -3,45 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoleGaugeController : MonoBehaviour
 {
-    [Header("Parameters")]
-    [SerializeField] private float _lenghtValue;
-    
     [Header("Gauges References")]
-    [SerializeField] private Transform _designRoleGauge;
-    [SerializeField] private Transform _artRoleGauge;
-    [SerializeField] private Transform _programmerRoleGauge;
+    [SerializeField] private Image _designRoleGauge;
+    [SerializeField] private Image _artRoleGauge;
 
     [Header("Game Manager Reference")] 
     [SerializeField] private GameManager _gameManager;
 
-    private Vector3 GaugesLenghtsValues()
+    private Vector2 GaugesLenghtsValues()
     {
-        var totalNumberOfCharacters = _gameManager.CharactersDesignerList.Count + _gameManager.CharactersArtistList.Count + _gameManager.CharactersProgrammerList.Count;
+        var designCount = _gameManager.CharactersDesignerList.Count == 0 ? 1 : _gameManager.CharactersDesignerList.Count;
+        var artCount = _gameManager.CharactersArtistList.Count == 0 ? 1 : _gameManager.CharactersArtistList.Count;
+        var programmerCount = _gameManager.CharactersProgrammerList.Count == 0 ? 1 : _gameManager.CharactersProgrammerList.Count;
         
-        var designListCountValue = _gameManager.CharactersDesignerList.Count == 0 ? 1 : _gameManager.CharactersDesignerList.Count;
-        float designLenghtValue = (_lenghtValue / totalNumberOfCharacters) * designListCountValue;
+        var totalNumberOfCharacters = designCount + artCount + programmerCount;
         
-        var artListCountValue = _gameManager.CharactersArtistList.Count == 0 ? 1 : _gameManager.CharactersArtistList.Count;
-        float artLenghtValue = (_lenghtValue / totalNumberOfCharacters) * artListCountValue;
+        var designPercentage =  (designCount / totalNumberOfCharacters)/100;
+        var artPercentage = (designPercentage + (artCount / totalNumberOfCharacters))/100;
         
-        var programmerListCountValue = _gameManager.CharactersProgrammerList.Count == 0 ? 1 : _gameManager.CharactersProgrammerList.Count;
-        float programmerLenghtValue = (_lenghtValue / totalNumberOfCharacters) * programmerListCountValue;
-        
-        return new Vector3(designLenghtValue, artLenghtValue, programmerLenghtValue);
+        return new Vector2(designPercentage, artPercentage);
     }
 
     public void UpdateRoleGauges()
     {
         var gaugeVector = GaugesLenghtsValues();
+        print(gaugeVector);
         const float animSpeed = .5f;
-        var designVector = new Vector3(gaugeVector.x, _designRoleGauge.transform.localScale.y, _designRoleGauge.transform.localScale.z);
-        _designRoleGauge.transform.DOScale(designVector, animSpeed);
-        var artVector = new Vector3(gaugeVector.y, _artRoleGauge.transform.localScale.y, _artRoleGauge.transform.localScale.z);
-        _artRoleGauge.transform.DOScaleX(gaugeVector.y, animSpeed);
-        var programmerVector = new Vector3(gaugeVector.z, _programmerRoleGauge.transform.localScale.y, _programmerRoleGauge.transform.localScale.z);
-        _programmerRoleGauge.transform.DOScaleX(gaugeVector.z,animSpeed);
+        _designRoleGauge.DOFillAmount(gaugeVector.x, animSpeed);
+        _artRoleGauge.DOFillAmount(gaugeVector.y, animSpeed);
     }
 }

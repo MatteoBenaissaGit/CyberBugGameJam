@@ -52,6 +52,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button _cardConfirmButton;
     [SerializeField] private Button _cardCancelButton;
 
+    [Header("End Image References")] 
+    [SerializeField] private SpriteRenderer _endSpriteRenderer;
+    [SerializeField] private Sprite _tooMuchDesignerEndSprite;
+    [SerializeField] private Sprite _tooMuchArtistEndSprite;
+    [SerializeField] private Sprite _tooMuchProgrammerEndSprite;
+    [SerializeField] private Sprite _perfectlyBalancedEndSprite;
+
     [Header("Debug")] 
     [SerializeField] private GameState _gameState;
     public CharacterData CurrentCharacter;
@@ -63,7 +70,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UIGaugesReset(Vector3.zero, true);
-        UIRoleListReset();
+        UpdateEndImage();
         UIButtonReset();
         UpdateRoleListsVisual();
         ChangeState(GameState.Start);
@@ -103,11 +110,6 @@ public class GameManager : MonoBehaviour
         ProgrammingGauge.DOFillAmount(programmingValue,fillSpeed);
         _programmingBackGauge.DOFillAmount(programmingValue,fillSpeed);
         _programmingTempGauge.DOFillAmount(0,fillSpeed);
-    }
-
-    private void UIRoleListReset()
-    {
-
     }
 
     private void UIButtonReset()
@@ -365,6 +367,8 @@ public class GameManager : MonoBehaviour
         bool doesCharacterHasPredefinedRole = CurrentCharacter.CharacterPredefinedRole == CurrentCharacter.CharacterRoleGiver();
 
         AddCharacterToList(CurrentCharacter, CurrentCharacter.CharacterRoleGiver());
+        UpdateEndImage();
+        
         ChangeState(GameState.CharacterExit);
     }
 
@@ -416,7 +420,37 @@ public class GameManager : MonoBehaviour
 
     private void EndGame()
     {
+        UpdateEndImage();
         print("end game");
+    }
+
+    private void UpdateEndImage()
+    {
+        var characterCountDictionary = new Dictionary<Role, int>()
+        {
+            { Role.Designer, CharactersDesignerList.Count},
+            { Role.Artist, CharactersArtistList.Count},
+            { Role.Programmer, CharactersProgrammerList.Count}
+        };
+        
+        const int diffTolerance = 1;
+        var ordered = characterCountDictionary.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        var diff = ordered.ElementAt(0).Value - ordered.ElementAt(1).Value;
+        if (diff > diffTolerance)
+        {
+            _endSpriteRenderer.sprite = ordered.ElementAt(0).Key switch
+            {
+                Role.Designer => _tooMuchDesignerEndSprite,
+                Role.Artist => _tooMuchArtistEndSprite,
+                Role.Programmer => _tooMuchProgrammerEndSprite,
+                _ => _endSpriteRenderer.sprite
+            };
+        }
+        else
+        {
+            _endSpriteRenderer.sprite = _perfectlyBalancedEndSprite;
+        }
+
     }
 }
 

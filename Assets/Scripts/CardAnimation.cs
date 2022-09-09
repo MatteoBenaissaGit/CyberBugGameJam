@@ -72,7 +72,7 @@ public class CardAnimation : MonoBehaviour
         IsSelected = false;
         
         //guard if already placed
-        if (_cardCompenent.isPlaced) return;
+        if (_cardCompenent.isPlaced || !GameManager.CanSelectCards) return;
         
         transform.DOComplete();
         Vector3 movePositionSelect =
@@ -87,7 +87,7 @@ public class CardAnimation : MonoBehaviour
 
     public void CardExit()
     {
-        const float exitMoveY = -3f;
+        const float exitMoveY = -6f;
         const float exitMoveSpeed = .5f;
         transform.DOComplete();
         transform.DOMoveY(transform.position.y + exitMoveY, exitMoveSpeed).OnComplete(DestroyCard);

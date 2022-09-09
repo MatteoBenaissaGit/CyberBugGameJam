@@ -50,15 +50,17 @@ public class CardSpawnerAndHandController : MonoBehaviour
     private void SetupAvailableCardList()
     {
         _currentNumberOfCardInHand = numberoOfCardInHand;
-        AvailableCardList = _gameManager.CardDataList;
-        if (numberoOfCardInHand > AvailableCardList.Count) _currentNumberOfCardInHand = AvailableCardList.Count;
+        foreach (var cardData in _gameManager.CardDataList) {
+            AvailableCardList.Add(cardData);
+        }
+        if (_currentNumberOfCardInHand > AvailableCardList.Count) _currentNumberOfCardInHand = AvailableCardList.Count;
     }
 
     private void CardSetup()
     {
         var animationSpeed = .5f;
         var startOffsetY = -1.5f;
-
+        
         for(var i = 0; i < _currentNumberOfCardInHand; i++)
         {
             //dataCard choice -> block cardData being chosen twice by only allowing cardData choice that haven't been chosen

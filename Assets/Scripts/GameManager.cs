@@ -56,33 +56,38 @@ public class GameManager : MonoBehaviour
 
     private bool _cardIsCurrentlySelected = false;
     private CardSpawnerAndHandController _cardSpawnerAndHandController;
-    private bool _canSelectCards = true;
+    public bool CanSelectCards = true;
 
     private void Start()
     {
-        UIReset();
+        UIGaugesReset();
+        UITextReset();
         ChangeState(GameState.Start);
         
         //references
         _cardSpawnerAndHandController = gameObject.GetComponent<CardSpawnerAndHandController>();
     }
 
-    private void UIReset()
+    private void UIGaugesReset()
     {
+        const float fillSpeed = .2f;
         //gauges
         //design
-        _designGauge.fillAmount = 0;
-        _designBackGauge.fillAmount = 0;
-        _designTempGauge.fillAmount = 0;
+        _designGauge.DOFillAmount(0,fillSpeed);
+        _designBackGauge.DOFillAmount(0,fillSpeed);
+        _designTempGauge.DOFillAmount(0,fillSpeed);
         //art
-        _artGauge.fillAmount = 0;
-        _artBackGauge.fillAmount = 0;
-        _artTempGauge.fillAmount = 0;
+        _artGauge.DOFillAmount(0,fillSpeed);
+        _artBackGauge.DOFillAmount(0,fillSpeed);
+        _artTempGauge.DOFillAmount(0,fillSpeed);
         //programming
-        _programmingGauge.fillAmount = 0;
-        _programmingBackGauge.fillAmount = 0;
-        _programmingTempGauge.fillAmount = 0;
-        
+        _programmingGauge.DOFillAmount(0,fillSpeed);
+        _programmingBackGauge.DOFillAmount(0,fillSpeed);
+        _programmingTempGauge.DOFillAmount(0,fillSpeed);
+    }
+
+    private void UITextReset()
+    {
         //text
         _designerListTextMeshPro.text = "";
         _artistListTextMeshPro.text = "";
@@ -168,14 +173,14 @@ public class GameManager : MonoBehaviour
         //card spawning animation (other script)
         _cardSpawnerAndHandController.SetupCardsForNewCharacter();
 
-        _canSelectCards = true;
+        CanSelectCards = true;
         ChangeState(GameState.WaitingForInput);
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
     private void CardSelectionAndActivation()
     {
-        if (!_canSelectCards) return;
+        if (!CanSelectCards) return;
         
         Card cardComponent = null;
         CardAnimation cardAnimationComponent = null;
@@ -260,7 +265,7 @@ public class GameManager : MonoBehaviour
         _currentNumberOfCardSelected++;
         if (_currentNumberOfCardSelected >= _numberOfCardsRequiredPerCharacter)
         {
-            _canSelectCards = false;
+            CanSelectCards = false;
             StartCoroutine(EndCharacterWithRoleAttribution());
         }
     }
@@ -307,6 +312,7 @@ public class GameManager : MonoBehaviour
         
         //remove cards
         _cardSpawnerAndHandController.RemoveCurrentHandCardAndSpawnNewHand();
+        _currentNumberOfCardSelected = 0;
         
         //next step
         StartCoroutine(SpawnANewCharacter());
@@ -316,6 +322,7 @@ public class GameManager : MonoBehaviour
     {
         const float secondsToWait = 2f;
         yield return new WaitForSeconds(secondsToWait);
+        UIGaugesReset();
         ChangeState(GameState.CharacterSpawn);
     }
     

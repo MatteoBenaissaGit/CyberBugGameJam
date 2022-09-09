@@ -3,19 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1515a1ed-6765-445b-a03c-9eb9b672cc27" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CyberBugGameJam/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CyberBugGameJam/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CardPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/CardPrefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CardSpotPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/CardSpotPrefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MattScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MattScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardSelectAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardSelectAnimation.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardAnimation.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GaugePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GaugePrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardAnimation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardSpawnerAndHandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardSpawnerAndHandController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/CharacterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/CharacterData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectsData/CharacterData/CharacterDataTest.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectsData/CharacterData/CharacterDataTest.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnerCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardSpawnerAndHandController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnerCard.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardSpawnerAndHandController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +78,7 @@
       <updated>1662626711291</updated>
       <workItem from="1662626716612" duration="17510000" />
       <workItem from="1662652611986" duration="1742000" />
-      <workItem from="1662671727866" duration="13668000" />
+      <workItem from="1662671727866" duration="15763000" />
     </task>
     <servers />
   </component>

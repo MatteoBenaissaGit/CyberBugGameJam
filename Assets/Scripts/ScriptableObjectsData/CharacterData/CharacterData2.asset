@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4dd571ce79d4e4386c0373e8e7579e, type: 3}
   m_Name: CharacterData2
   m_EditorClassIdentifier: 
-  CharacterName: Fabrice
+  CharacterName: 
   CharacterPredefinedRole: 1
-  CharacterSprite: {fileID: 21300000, guid: 968a9e6ea00144842b276797524a6d30, type: 3}
+  CharacterSprite: {fileID: 21300000, guid: 120bcb6bc67a0854b8d8ac6534fd8e7e, type: 3}
   DesignBaseValue: 0
   ArtBaseValue: 0
   ProgrammingBaseValue: 20

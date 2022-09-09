@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14134127ae7130d488acca1c3eb64a1a, type: 3}
-  m_Name: CardData5
+  m_Name: "CardData_Surm\xE9nage"
   m_EditorClassIdentifier: 
-  CardName: Card5
-  CardDescription: card5 description
-  cardImageSprite: {fileID: 0}
-  DesignValue: 25
-  ArtValue: 23
-  ProgrammingValue: 2
+  CardName: "Surm\xE9nage "
+  CardDescription: 'C''est sur-propre '
+  cardImageSprite: {fileID: 21300000, guid: 22aab8731b0b66f4cbf503095b0ba52c, type: 3}
+  DesignValue: 20
+  ArtValue: 20
+  ProgrammingValue: 20

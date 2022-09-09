@@ -207,3 +207,119 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2134059917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2134059920}
+  - component: {fileID: 2134059919}
+  - component: {fileID: 2134059918}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2134059918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134059917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3965bf94a4ae154fa10b511a5325512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPrefabGameObject: {fileID: 6417868913907789502, guid: e3c4b677adf561141a5171e3c1c697b5, type: 3}
+  numberoOfCardInHand: 7
+  _currentNumberOfCardInHand: 0
+  AvailableCardList: []
+  _offsetX: -4
+  _offsetY: -1.5
+  _offsetZ: 0
+--- !u!114 &2134059919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134059917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd057189b4e793047aa79079ca1eaac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _numberOfCardsRequiredPerCharacter: 3
+  _fillAmountTime: 1.5
+  CurrentNumberOfCardSelected: 0
+  CardDataList:
+  - {fileID: 11400000, guid: 7c2bafd2761dd044a92990a01f0e7568, type: 2}
+  - {fileID: 11400000, guid: a9222bc1ff8325d4cbee4cd8cb90088c, type: 2}
+  - {fileID: 11400000, guid: 0ce22cde0f53bf040b27579b3369c7a9, type: 2}
+  - {fileID: 11400000, guid: d2b6453e2a52b604e94ad5f8ac8e9b65, type: 2}
+  - {fileID: 11400000, guid: da7ce544440342d4b99da95ac5fa74a8, type: 2}
+  - {fileID: 11400000, guid: 299c2dc84672d684c8339ca3afb791c4, type: 2}
+  - {fileID: 11400000, guid: 11d58d4f8d9bec7469ea407f30263fff, type: 2}
+  - {fileID: 11400000, guid: 7fa549ccd8dd3bb46bf773be0a1b3994, type: 2}
+  - {fileID: 11400000, guid: 15148cd89f983cf458483493621a9a19, type: 2}
+  - {fileID: 11400000, guid: 8dc172bb6438c50498acbb4712e8f6d4, type: 2}
+  - {fileID: 11400000, guid: 8304a5edd3aae8f419622a5a9040d5e9, type: 2}
+  - {fileID: 11400000, guid: f44b4bf5f830ec04ab1f4f6ae4715d9c, type: 2}
+  - {fileID: 11400000, guid: 94e21d19bd009b44399105d869b558bb, type: 2}
+  CharacterDataList:
+  - {fileID: 11400000, guid: a0cf1fe29aa49ce4f8ce7ada57d25933, type: 2}
+  - {fileID: 11400000, guid: 2dc9a52306c0a894dbb831aeab8ffbbe, type: 2}
+  - {fileID: 11400000, guid: 9b7e4c7a57a13244c89007dd97836393, type: 2}
+  - {fileID: 11400000, guid: acfde80461af6a441a80f3190581ef2e, type: 2}
+  - {fileID: 11400000, guid: c19c457ba29cca546b7386236c52d258, type: 2}
+  - {fileID: 11400000, guid: 6109ae7ff36cc2b439e14330097855ce, type: 2}
+  - {fileID: 11400000, guid: 3d3310c604aad6e4593943efa7a1990d, type: 2}
+  - {fileID: 11400000, guid: 26dbf1dabd86e3d4dac23047733f07f9, type: 2}
+  - {fileID: 11400000, guid: af0a7690c131bb3478ddf3b711c69b7c, type: 2}
+  - {fileID: 11400000, guid: 0827b98d5f335a240ad245fa92e43f31, type: 2}
+  CharactersDesignerList: []
+  CharactersArtistList: []
+  CharactersProgrammerList: []
+  DesignGauge: {fileID: 0}
+  _designBackGauge: {fileID: 0}
+  _designTempGauge: {fileID: 0}
+  ArtGauge: {fileID: 0}
+  _artBackGauge: {fileID: 0}
+  _artTempGauge: {fileID: 0}
+  ProgrammingGauge: {fileID: 0}
+  _programmingBackGauge: {fileID: 0}
+  _programmingTempGauge: {fileID: 0}
+  _roleGaugeController: {fileID: 0}
+  CardSpotControllerList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _characterPrefab: {fileID: 8923739179096278722, guid: 494f444ebfcf17b4993c0f0deebdab58, type: 3}
+  _characterTransformPosition: {fileID: 0}
+  _cardConfirmButton: {fileID: 0}
+  _cardCancelButton: {fileID: 0}
+  _gameState: 0
+  CurrentCharacter: {fileID: 0}
+  CanSelectCards: 1
+--- !u!4 &2134059920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134059917}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.40272838, y: 0.13676105, z: 0.015093803}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

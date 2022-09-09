@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc4dd571ce79d4e4386c0373e8e7579e, type: 3}
-  m_Name: CharacterData1
+  m_Name: CharacterData1 1
   m_EditorClassIdentifier: 
   CharacterName: 
   CharacterPredefinedRole: 0
-  CharacterSprite: {fileID: 21300000, guid: 72d27966acccc5c4dbf7dbf7aeff6705, type: 3}
+  CharacterSprite: {fileID: 21300000, guid: 7e435f7bd5950cd4c81c3dd54cbb11c5, type: 3}
   DesignBaseValue: 15
   ArtBaseValue: 0
   ProgrammingBaseValue: 0

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14134127ae7130d488acca1c3eb64a1a, type: 3}
-  m_Name: CardData2
+  m_Name: CardData_Jeremy
   m_EditorClassIdentifier: 
-  CardName: Card2
-  CardDescription: card2 description
-  cardImageSprite: {fileID: 0}
-  DesignValue: 32
-  ArtValue: 5
-  ProgrammingValue: 12
+  CardName: Jeremy
+  CardDescription: 'Un jour, il avait des cheveux. Puis il est devenu directeur P3D. '
+  cardImageSprite: {fileID: 21300000, guid: 2b9ea017b8fb3bb4f964d715974c38e5, type: 3}
+  DesignValue: -10
+  ArtValue: 60
+  ProgrammingValue: -10

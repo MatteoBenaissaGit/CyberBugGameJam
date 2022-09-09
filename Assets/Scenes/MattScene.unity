@@ -216,9 +216,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ce22cde0f53bf040b27579b3369c7a9, type: 2}
   - {fileID: 11400000, guid: d2b6453e2a52b604e94ad5f8ac8e9b65, type: 2}
   - {fileID: 11400000, guid: da7ce544440342d4b99da95ac5fa74a8, type: 2}
+  - {fileID: 11400000, guid: 299c2dc84672d684c8339ca3afb791c4, type: 2}
+  - {fileID: 11400000, guid: 11d58d4f8d9bec7469ea407f30263fff, type: 2}
+  - {fileID: 11400000, guid: 7fa549ccd8dd3bb46bf773be0a1b3994, type: 2}
+  - {fileID: 11400000, guid: 15148cd89f983cf458483493621a9a19, type: 2}
+  - {fileID: 11400000, guid: 8dc172bb6438c50498acbb4712e8f6d4, type: 2}
+  - {fileID: 11400000, guid: 8304a5edd3aae8f419622a5a9040d5e9, type: 2}
+  - {fileID: 11400000, guid: f44b4bf5f830ec04ab1f4f6ae4715d9c, type: 2}
+  - {fileID: 11400000, guid: 94e21d19bd009b44399105d869b558bb, type: 2}
   CharacterDataList:
-  - {fileID: 11400000, guid: a0cf1fe29aa49ce4f8ce7ada57d25933, type: 2}
   - {fileID: 11400000, guid: 2dc9a52306c0a894dbb831aeab8ffbbe, type: 2}
+  - {fileID: 11400000, guid: 9b7e4c7a57a13244c89007dd97836393, type: 2}
+  - {fileID: 11400000, guid: a0cf1fe29aa49ce4f8ce7ada57d25933, type: 2}
+  - {fileID: 11400000, guid: acfde80461af6a441a80f3190581ef2e, type: 2}
+  - {fileID: 11400000, guid: c19c457ba29cca546b7386236c52d258, type: 2}
+  - {fileID: 11400000, guid: 6109ae7ff36cc2b439e14330097855ce, type: 2}
+  - {fileID: 11400000, guid: 3d3310c604aad6e4593943efa7a1990d, type: 2}
+  - {fileID: 11400000, guid: 26dbf1dabd86e3d4dac23047733f07f9, type: 2}
+  - {fileID: 11400000, guid: af0a7690c131bb3478ddf3b711c69b7c, type: 2}
+  - {fileID: 11400000, guid: 0827b98d5f335a240ad245fa92e43f31, type: 2}
   CharactersDesignerList: []
   CharactersArtistList: []
   CharactersProgrammerList: []
@@ -256,11 +272,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefabGameObject: {fileID: 6417868913907789502, guid: e3c4b677adf561141a5171e3c1c697b5, type: 3}
-  numberoOfCardInHand: 5
+  numberoOfCardInHand: 7
   _currentNumberOfCardInHand: 0
   AvailableCardList: []
   _offsetX: -4
-  _offsetY: -1.5
+  _offsetY: -0.5
   _offsetZ: 0
 --- !u!4 &350380391 stripped
 Transform:
@@ -1766,7 +1782,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786991456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.33, y: 1.83, z: 0}
+  m_LocalPosition: {x: 1.95, y: 1.44, z: 0}
   m_LocalScale: {x: 1.0230081, y: 1.0838033, z: 2.8409}
   m_ConstrainProportionsScale: 0
   m_Children: []

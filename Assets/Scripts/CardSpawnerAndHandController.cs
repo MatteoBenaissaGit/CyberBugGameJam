@@ -211,49 +211,51 @@ public class CardSpawnerAndHandController : MonoBehaviour
     public void TakeOneSpotCardBackToHand(Card card)
     {
         //make spot istaken false
-        
+        card.CardSpot.isTaken = false;
 
         //re-add card in handlist and take it off from spotlist
+        _inHandCardList.Add(card);
+        _cardOnSlotsList.Remove(card);
 
         //animate card back to the hand then hand position reset with new card
+        float moveAnimSpeed = .5f;
+        var position = _inHandCardList.FirstOrDefault()!.transform.position;
+        card.transform.DOComplete();
+        card.GetComponent<Card>().isPlaced = false;
+        card.transform.DOMove(position, moveAnimSpeed).OnComplete(CardRepositioning);
 
-        //gauge adjust without card effet
+        //gauge adjust without card effect
+        var designGaugeValue = - (float)card.DesignValue;
+        var artGaugeValue = - (float)card.ArtValue;
+        var programmingGaugeValue = - (float)card.ProgrammerValue;
+        _gameManager.UIGaugesReset(new Vector3(designGaugeValue, artGaugeValue, programmingGaugeValue), false);
+        //remove values from cardData dictionary
+        _gameManager.CurrentCharacter.RolesGaugesDictionary[Role.Designer] += (int)designGaugeValue;
+        _gameManager.CurrentCharacter.RolesGaugesDictionary[Role.Artist] += (int)artGaugeValue;
+        _gameManager.CurrentCharacter.RolesGaugesDictionary[Role.Programmer] += (int)programmingGaugeValue;
+        //fill temp to 0
+        _gameManager.TempGaugeReset();
+        
+        //values&bool reset
+        card.isPlaced = false;
+        card.CardSpot = null;
+        _gameManager.CanSelectCards = true;
+        _gameManager.CurrentNumberOfCardSelected --;
+        
     }
     
     public void TakeAllSpotsCardsBackToHand()
     {
-        //make all spot istaken false
-        ResetAllSpotIsTakenToFalse();
-        
-        //re-add cards in handlist and take them off from spotlist + create a temp list with card to move
-        var tempCardList = new List<Card>();
-        foreach (var cardOnSlot in _cardOnSlotsList.ToList())
+        foreach (var card in _cardOnSlotsList.ToList())
         {
-            _inHandCardList.Add(cardOnSlot);
-            tempCardList.Add(cardOnSlot);
-            _cardOnSlotsList.Remove(cardOnSlot);
-        }
-        
-        //animate cards back to the hand and reset hand shuffle position
-        float moveAnimSpeed = .5f;
-        var position = _inHandCardList.FirstOrDefault().transform.position;
-        foreach (var card in tempCardList)
-        {
-            card.transform.DOComplete();
-            moveAnimSpeed += 2f;
-            card.transform.DOMove(position, moveAnimSpeed);
-            card.GetComponent<Card>().isPlaced = false;
-        }
-        foreach (var card in _inHandCardList)
-        {
-            card.transform.DOComplete();
-            moveAnimSpeed += 2f;
-            card.transform.DOMove(position, moveAnimSpeed).OnComplete(CardRepositioning);
+            TakeOneSpotCardBackToHand(card);
         }
 
-        //reset gauges
-        var currentCharacter = _gameManager.CurrentCharacter;
-        _gameManager.UIGaugesReset(new Vector3(currentCharacter.DesignBaseValue, currentCharacter.ArtBaseValue, currentCharacter.ProgrammingBaseValue));
+        var designGaugeValue = -_gameManager.DesignGauge.fillAmount*100 + _gameManager.CurrentCharacter.DesignBaseValue;
+        var artGaugeValue = -_gameManager.ArtGauge.fillAmount*100 + _gameManager.CurrentCharacter.ArtBaseValue;
+        var programmerGaugeValue = -_gameManager.ProgrammingGauge.fillAmount*100 + _gameManager.CurrentCharacter.ProgrammingBaseValue;
+        _gameManager.UIGaugesReset(new Vector3(designGaugeValue,artGaugeValue,programmerGaugeValue), false);
+        _gameManager.TempGaugeReset();
     }
 
 }

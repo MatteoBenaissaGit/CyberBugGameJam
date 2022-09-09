@@ -15,32 +15,30 @@ public class GameManager : MonoBehaviour
     [Header("Parameters")] 
     [SerializeField] private int _numberOfCardsRequiredPerCharacter = 3;
     [SerializeField] private float _fillAmountTime = 1.5f;
-    private int _currentNumberOfCardSelected;
+    public int CurrentNumberOfCardSelected;
     
     [Header("Data list")]
     public List<CardData> CardDataList = new List<CardData>();
     public List<CharacterData> CharacterDataList = new List<CharacterData>();
     
     //role listing (Empty lists that are completed throughout the game when character's roles are decided)
-    private List<CharacterData> _charactersDesignerList = new List<CharacterData>();
-    private List<CharacterData> _charactersArtistList = new List<CharacterData>();
-    private List<CharacterData> _charactersProgrammerList = new List<CharacterData>();
-
-    [Header("TextMesh References")]
-    [SerializeField] private TextMeshProUGUI _designerListTextMeshPro;
-    [SerializeField] private TextMeshProUGUI _artistListTextMeshPro;
-    [SerializeField] private TextMeshProUGUI _programmerListTextMeshPro;
+    public List<CharacterData> CharactersDesignerList = new List<CharacterData>();
+    public List<CharacterData> CharactersArtistList = new List<CharacterData>();
+    public List<CharacterData> CharactersProgrammerList = new List<CharacterData>();
 
     [Header("Gauges References")]
-    [Space(5)] [SerializeField] private Image _designGauge;
+    [Space(5)] public Image DesignGauge;
     [SerializeField] private Image _designBackGauge;
     [SerializeField] private Image _designTempGauge;
-    [Space(5)] [SerializeField] private Image _artGauge;
+    [Space(5)] public Image ArtGauge;
     [SerializeField] private Image _artBackGauge;
     [SerializeField] private Image _artTempGauge;
-    [Space(5)] [SerializeField] private Image _programmingGauge;
+    [Space(5)] public Image ProgrammingGauge;
     [SerializeField] private Image _programmingBackGauge;
     [SerializeField] private Image _programmingTempGauge;
+
+    [Header("Role Gauge Reference")]
+    [SerializeField] private RoleGaugeController _roleGaugeController;
 
     [Header("CardSpot References")] 
     public List<CardSpotController> CardSpotControllerList = new List<CardSpotController>();
@@ -64,9 +62,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UIGaugesReset(Vector3.zero);
-        UITextReset();
+        UIGaugesReset(Vector3.zero, true);
+        UIRoleListReset();
         UIButtonReset();
+        UpdateRoleListsVisual();
         ChangeState(GameState.Start);
         
         //references
@@ -85,33 +84,30 @@ public class GameManager : MonoBehaviour
         _cardCancelButton.onClick.RemoveListener(CardCancel);
     }
 
-    public void UIGaugesReset(Vector3 gaugeAdd)
+    public void UIGaugesReset(Vector3 gaugeAdd, bool resetToZero)
     {
         const float fillSpeed = .2f;
         //gauges
         //design
-        var designValue = gaugeAdd.x / 100;
-        _designGauge.DOFillAmount(designValue,fillSpeed);
+        var designValue = resetToZero ? 0 : DesignGauge.fillAmount + gaugeAdd.x / 100;
+        DesignGauge.DOFillAmount(designValue,fillSpeed);
         _designBackGauge.DOFillAmount(designValue,fillSpeed);
-        _designTempGauge.DOFillAmount(designValue,fillSpeed);
+        _designTempGauge.DOFillAmount(0,fillSpeed);
         //art
-        var artValue = gaugeAdd.y / 100;
-        _artGauge.DOFillAmount(artValue,fillSpeed);
+        var artValue = resetToZero ? 0 : ArtGauge.fillAmount + gaugeAdd.y / 100;
+        ArtGauge.DOFillAmount(artValue,fillSpeed);
         _artBackGauge.DOFillAmount(artValue,fillSpeed);
-        _artTempGauge.DOFillAmount(artValue,fillSpeed);
+        _artTempGauge.DOFillAmount(0,fillSpeed);
         //programming
-        var programmingValue = gaugeAdd.z / 100;
-        _programmingGauge.DOFillAmount(programmingValue,fillSpeed);
+        var programmingValue = resetToZero ? 0 : ProgrammingGauge.fillAmount + gaugeAdd.z / 100;
+        ProgrammingGauge.DOFillAmount(programmingValue,fillSpeed);
         _programmingBackGauge.DOFillAmount(programmingValue,fillSpeed);
-        _programmingTempGauge.DOFillAmount(programmingValue,fillSpeed);
+        _programmingTempGauge.DOFillAmount(0,fillSpeed);
     }
 
-    private void UITextReset()
+    private void UIRoleListReset()
     {
-        //text
-        _designerListTextMeshPro.text = "";
-        _artistListTextMeshPro.text = "";
-        _programmerListTextMeshPro.text = "";
+
     }
 
     private void UIButtonReset()
@@ -227,24 +223,26 @@ public class GameManager : MonoBehaviour
                 cardAnimationComponent = hit.collider.GetComponent<CardAnimation>();
 
                 //guard if card already placed or cant be selected
-                if (cardComponent.isPlaced || !CanSelectCards)
-                {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        _cardSpawnerAndHandController.TakeOneSpotCardBackToHand(cardComponent);
-                    }
-                    return;
-                }
-                
+                if (!CanSelectCards) return;
+
                 //card select
                 cardAnimationComponent.GameManager = this;
-                cardAnimationComponent.CardSelect();
-                cardAnimationComponent.DetailedCard.transform.rotation = Quaternion.Euler(Vector3.zero);
-                CardSelectionGaugeTempShow(cardComponent);
+                if (!cardComponent.isPlaced)
+                {
+                    cardAnimationComponent.CardSelect();
+                    cardAnimationComponent.DetailedCard.transform.rotation = Quaternion.Euler(Vector3.zero);
+                    CardSelectionGaugeTempShow(cardComponent);
+                }
 
                 //card activation if click
                 if (Input.GetMouseButtonDown(0))
                 {
+                    if (cardComponent.isPlaced)
+                    {
+                        //take card back
+                        _cardSpawnerAndHandController.TakeOneSpotCardBackToHand(cardComponent);
+                        return;
+                    }
                     cardAnimationComponent.CardDeselect();
                     cardComponent.isPlaced = true;
                     CardActivation(cardComponent);
@@ -258,13 +256,13 @@ public class GameManager : MonoBehaviour
         const float fillAnimationTime = .2f;
         //gauges
         //design
-        var designTempFillAmount = _designGauge.fillAmount + ((float)cardData.DesignValue / 100);
+        var designTempFillAmount = DesignGauge.fillAmount + ((float)cardData.DesignValue / 100);
         _designTempGauge.DOFillAmount(designTempFillAmount, fillAnimationTime);
         //art
-        var artTempFillAmount = _artGauge.fillAmount + ((float)cardData.ArtValue / 100);
+        var artTempFillAmount = ArtGauge.fillAmount + ((float)cardData.ArtValue / 100);
         _artTempGauge.DOFillAmount(artTempFillAmount, fillAnimationTime);
         //programming
-        var programmingTempFillAmount = _programmingGauge.fillAmount + ((float)cardData.ProgrammerValue / 100);
+        var programmingTempFillAmount = ProgrammingGauge.fillAmount + ((float)cardData.ProgrammerValue / 100);
         _programmingTempGauge.DOFillAmount(programmingTempFillAmount, fillAnimationTime);
     }
 
@@ -272,9 +270,9 @@ public class GameManager : MonoBehaviour
     {
         const float fillAnimationTime = .2f;
         
-        _designTempGauge.DOFillAmount(_designGauge.fillAmount, fillAnimationTime);
-        _artTempGauge.DOFillAmount(_artGauge.fillAmount, fillAnimationTime);
-        _programmingTempGauge.DOFillAmount(_programmingGauge.fillAmount, fillAnimationTime);
+        _designTempGauge.DOFillAmount((float)CurrentCharacter.RolesGaugesDictionary[Role.Designer]/100, fillAnimationTime);
+        _artTempGauge.DOFillAmount((float)CurrentCharacter.RolesGaugesDictionary[Role.Artist]/100, fillAnimationTime);
+        _programmingTempGauge.DOFillAmount((float)CurrentCharacter.RolesGaugesDictionary[Role.Programmer]/100, fillAnimationTime);
     }
 
     private void CardActivation(Card cardComponent)
@@ -292,15 +290,15 @@ public class GameManager : MonoBehaviour
             {
                 CardSpotController cardSpot = CardSpotControllerList.OrderBy(spot => spot.isTaken).FirstOrDefault();
                 _cardSpawnerAndHandController.TakeOffCardFromHandToSpot(cardComponent, cardSpot!.Position);
-                cardComponent._cardSpot = cardSpot;
+                cardComponent.CardSpot = cardSpot;
                 cardSpot.isTaken = true;
             }
 
         }
         
         //check if the good amount of cards are selected
-        _currentNumberOfCardSelected++;
-        if (_currentNumberOfCardSelected >= _numberOfCardsRequiredPerCharacter)
+        CurrentNumberOfCardSelected++;
+        if (CurrentNumberOfCardSelected >= _numberOfCardsRequiredPerCharacter)
         {
             CanSelectCards = false;
             StartCoroutine(MakeCardButtonsAppears());
@@ -353,12 +351,12 @@ public class GameManager : MonoBehaviour
         _programmingBackGauge.fillAmount = (float)CurrentCharacter.RolesGaugesDictionary[Role.Programmer] / 100;
         
         //DOTween effect with real gauge right after
-        _designGauge.DOComplete();
-        _artGauge.DOComplete();
-        _programmingGauge.DOComplete();
-        _designGauge.DOFillAmount(_designBackGauge.fillAmount, _fillAmountTime);
-        _artGauge.DOFillAmount(_artBackGauge.fillAmount, _fillAmountTime);
-        _programmingGauge.DOFillAmount(_programmingBackGauge.fillAmount, _fillAmountTime);
+        DesignGauge.DOComplete();
+        ArtGauge.DOComplete();
+        ProgrammingGauge.DOComplete();
+        DesignGauge.DOFillAmount(_designBackGauge.fillAmount, _fillAmountTime);
+        ArtGauge.DOFillAmount(_artBackGauge.fillAmount, _fillAmountTime);
+        ProgrammingGauge.DOFillAmount(_programmingBackGauge.fillAmount, _fillAmountTime);
     }
 
     private void CharacterRoleAttribution()
@@ -380,7 +378,7 @@ public class GameManager : MonoBehaviour
         
         //remove cards
         _cardSpawnerAndHandController.RemoveCurrentHandCardAndSpawnNewHand();
-        _currentNumberOfCardSelected = 0;
+        CurrentNumberOfCardSelected = 0;
         
         //next step
         StartCoroutine(SpawnANewCharacter());
@@ -390,7 +388,7 @@ public class GameManager : MonoBehaviour
     {
         const float secondsToWait = 2f;
         yield return new WaitForSeconds(secondsToWait);
-        UIGaugesReset(Vector3.zero);
+        UIGaugesReset(Vector3.zero, true);
         ChangeState(GameState.CharacterSpawn);
     }
     
@@ -399,28 +397,21 @@ public class GameManager : MonoBehaviour
         switch (role)
         {
             case Role.Designer:
-                _charactersDesignerList.Add(characterData);
-                UpdateListsVisual(_charactersDesignerList, _designerListTextMeshPro);
+                CharactersDesignerList.Add(characterData);
                 break;
             case Role.Artist:
-                _charactersArtistList.Add(characterData);
-                UpdateListsVisual(_charactersArtistList, _artistListTextMeshPro);
+                CharactersArtistList.Add(characterData);
                 break;
             case Role.Programmer:
-                _charactersProgrammerList.Add(characterData);
-                UpdateListsVisual(_charactersProgrammerList, _programmerListTextMeshPro);
+                CharactersProgrammerList.Add(characterData);
                 break;
         }
+        UpdateRoleListsVisual();
     }
     
-    private void UpdateListsVisual(List<CharacterData> characterList, TextMeshProUGUI textMesh)
+    private void UpdateRoleListsVisual()
     {
-        string listText = string.Empty;
-        foreach (var character in characterList)
-        {
-            listText += $"\n- {character.CharacterName}";
-        }
-        textMesh.text = listText;
+        _roleGaugeController.UpdateRoleGauges();
     }
 
     private void EndGame()

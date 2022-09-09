@@ -11,11 +11,10 @@ public class Card : MonoBehaviour
 {
     [Header("Card")]
     public SpriteRenderer CardImageSpriteRenderer;
-    public SpriteRenderer CardOutlineSpriteRenderer;
     public TextMeshProUGUI CardNameTextMesh;
     public TextMeshProUGUI CardDescriptionTextMesh;
     public bool isPlaced = false;
-    public CardSpotController _cardSpot = null;
+    public CardSpotController CardSpot = null;
     public CardAnimation CardAnimationComponent;
     
     [Header("Values")] [Space(10)]

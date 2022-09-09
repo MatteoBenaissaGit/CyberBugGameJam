@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardName: Geoffrey
   CardDescription: 'Lance un D20, sur un 12 tu obtient des cheveux soyeux '
-  cardImageSprite: {fileID: 21300000, guid: 8a643ed35be03f744b80baf661f414f4, type: 3}
+  cardImageSprite: {fileID: 21300000, guid: 01af067ea9de60743a33f69dc25cd394, type: 3}
   DesignValue: 40
   ArtValue: -40
   ProgrammingValue: 10

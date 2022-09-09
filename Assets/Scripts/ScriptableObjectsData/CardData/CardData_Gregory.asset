@@ -16,7 +16,7 @@ MonoBehaviour:
   CardDescription: "Lorsque il \xE9cris en rime/tous nos rire s'anime/ Toujours l\xE0
     pour nous/ il n'est jamais relou/ C'est un grand biker / Mais il ne fait pas
     peur  "
-  cardImageSprite: {fileID: 0}
+  cardImageSprite: {fileID: 21300000, guid: a3604362f99d2414688b9792a7f5ed64, type: 3}
   DesignValue: 10
   ArtValue: 0
   ProgrammingValue: -30

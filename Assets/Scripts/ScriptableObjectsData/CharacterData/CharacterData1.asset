@@ -15,3 +15,6 @@ MonoBehaviour:
   CharacterName: Roberto
   CharacterPredefinedRole: 0
   CharacterSprite: {fileID: 21300000, guid: bf9de7e7ec1f47a4c8e575d2cea10cf3, type: 3}
+  DesignBaseValue: 15
+  ArtBaseValue: 0
+  ProgrammingBaseValue: 0

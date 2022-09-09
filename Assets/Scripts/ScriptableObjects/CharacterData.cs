@@ -12,9 +12,13 @@ public class CharacterData : ScriptableObject
     public Role CharacterPredefinedRole;
     public Sprite CharacterSprite;
 
+    public int DesignBaseValue = 0;
+    public int ArtBaseValue = 0;
+    public int ProgrammingBaseValue = 0;
+
     public Dictionary<Role, int> RolesGaugesDictionary = new Dictionary<Role, int>()
     {
-        { Role.Designer, 0 },
+        { Role.Designer, 0},
         { Role.Artist, 0},
         { Role.Programmer, 0}
     };

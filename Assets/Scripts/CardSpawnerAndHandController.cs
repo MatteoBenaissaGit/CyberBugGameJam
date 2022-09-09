@@ -227,7 +227,7 @@ public class CardSpawnerAndHandController : MonoBehaviour
         
         //re-add cards in handlist and take them off from spotlist + create a temp list with card to move
         var tempCardList = new List<Card>();
-        foreach (var cardOnSlot in _cardOnSlotsList)
+        foreach (var cardOnSlot in _cardOnSlotsList.ToList())
         {
             _inHandCardList.Add(cardOnSlot);
             tempCardList.Add(cardOnSlot);
@@ -252,7 +252,8 @@ public class CardSpawnerAndHandController : MonoBehaviour
         }
 
         //reset gauges
-        _gameManager.UIGaugesReset();
+        var currentCharacter = _gameManager.CurrentCharacter;
+        _gameManager.UIGaugesReset(new Vector3(currentCharacter.DesignBaseValue, currentCharacter.ArtBaseValue, currentCharacter.ProgrammingBaseValue));
     }
 
 }

@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Debug")] 
     [SerializeField] private GameState _gameState;
-    [SerializeField] private CharacterData _currentCharacter;
+    public CharacterData CurrentCharacter;
 
     private bool _cardIsCurrentlySelected = false;
     private CardSpawnerAndHandController _cardSpawnerAndHandController;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UIGaugesReset();
+        UIGaugesReset(Vector3.zero);
         UITextReset();
         UIButtonReset();
         ChangeState(GameState.Start);
@@ -85,22 +85,25 @@ public class GameManager : MonoBehaviour
         _cardCancelButton.onClick.RemoveListener(CardCancel);
     }
 
-    public void UIGaugesReset()
+    public void UIGaugesReset(Vector3 gaugeAdd)
     {
         const float fillSpeed = .2f;
         //gauges
         //design
-        _designGauge.DOFillAmount(0,fillSpeed);
-        _designBackGauge.DOFillAmount(0,fillSpeed);
-        _designTempGauge.DOFillAmount(0,fillSpeed);
+        var designValue = gaugeAdd.x / 100;
+        _designGauge.DOFillAmount(designValue,fillSpeed);
+        _designBackGauge.DOFillAmount(designValue,fillSpeed);
+        _designTempGauge.DOFillAmount(designValue,fillSpeed);
         //art
-        _artGauge.DOFillAmount(0,fillSpeed);
-        _artBackGauge.DOFillAmount(0,fillSpeed);
-        _artTempGauge.DOFillAmount(0,fillSpeed);
+        var artValue = gaugeAdd.y / 100;
+        _artGauge.DOFillAmount(artValue,fillSpeed);
+        _artBackGauge.DOFillAmount(artValue,fillSpeed);
+        _artTempGauge.DOFillAmount(artValue,fillSpeed);
         //programming
-        _programmingGauge.DOFillAmount(0,fillSpeed);
-        _programmingBackGauge.DOFillAmount(0,fillSpeed);
-        _programmingTempGauge.DOFillAmount(0,fillSpeed);
+        var programmingValue = gaugeAdd.z / 100;
+        _programmingGauge.DOFillAmount(programmingValue,fillSpeed);
+        _programmingBackGauge.DOFillAmount(programmingValue,fillSpeed);
+        _programmingTempGauge.DOFillAmount(programmingValue,fillSpeed);
     }
 
     private void UITextReset()
@@ -171,7 +174,7 @@ public class GameManager : MonoBehaviour
     {
         //get a random character and make it spawn
         if (CharacterDataList.Count>0)
-            _currentCharacter = CharacterDataList[0];
+            CurrentCharacter = CharacterDataList[0];
         else
         {
             print("no more character");
@@ -183,9 +186,13 @@ public class GameManager : MonoBehaviour
         //setup character
         _currentCharacterGameObject = Instantiate(_characterPrefab, _characterTransformPosition.position, Quaternion.identity);
         CharacterController characterControllerComponent = _currentCharacterGameObject.GetComponent<CharacterController>();
-        characterControllerComponent.CharacterNameTextMesh.text = _currentCharacter.CharacterName;
-        if (_currentCharacter.CharacterSprite != null)
-            characterControllerComponent.CharacterSpriteRenderer.sprite = _currentCharacter.CharacterSprite;
+        characterControllerComponent.CharacterNameTextMesh.text = CurrentCharacter.CharacterName;
+        if (CurrentCharacter.CharacterSprite != null)
+            characterControllerComponent.CharacterSpriteRenderer.sprite = CurrentCharacter.CharacterSprite;
+        //gauges values
+        CurrentCharacter.AddValueToGauges(CurrentCharacter.DesignBaseValue,CurrentCharacter.ArtBaseValue,CurrentCharacter.ProgrammingBaseValue);
+        GaugeAnimation();
+        
         //character animation
         characterControllerComponent.CharacterSpawningAnimation();
 
@@ -273,7 +280,7 @@ public class GameManager : MonoBehaviour
     private void CardActivation(Card cardComponent)
     {
         //gauges modification
-        _currentCharacter.AddValueToGauges(cardComponent.DesignValue,cardComponent.ArtValue,cardComponent.ProgrammerValue);
+        CurrentCharacter.AddValueToGauges(cardComponent.DesignValue,cardComponent.ArtValue,cardComponent.ProgrammerValue);
         GaugeAnimation();
 
         //move card to selected card spot
@@ -341,9 +348,9 @@ public class GameManager : MonoBehaviour
     private void GaugeAnimation()
     {
         //white instant effect behind gauges
-        _designBackGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Designer] / 100;
-        _artBackGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Artist] / 100;
-        _programmingBackGauge.fillAmount = (float)_currentCharacter.RolesGaugesDictionary[Role.Programmer] / 100;
+        _designBackGauge.fillAmount = (float)CurrentCharacter.RolesGaugesDictionary[Role.Designer] / 100;
+        _artBackGauge.fillAmount = (float)CurrentCharacter.RolesGaugesDictionary[Role.Artist] / 100;
+        _programmingBackGauge.fillAmount = (float)CurrentCharacter.RolesGaugesDictionary[Role.Programmer] / 100;
         
         //DOTween effect with real gauge right after
         _designGauge.DOComplete();
@@ -357,16 +364,16 @@ public class GameManager : MonoBehaviour
     private void CharacterRoleAttribution()
     {
         //variable to know if character has been greatly associated with his role
-        bool doesCharacterHasPredefinedRole = _currentCharacter.CharacterPredefinedRole == _currentCharacter.CharacterRoleGiver();
+        bool doesCharacterHasPredefinedRole = CurrentCharacter.CharacterPredefinedRole == CurrentCharacter.CharacterRoleGiver();
 
-        AddCharacterToList(_currentCharacter, _currentCharacter.CharacterRoleGiver());
+        AddCharacterToList(CurrentCharacter, CurrentCharacter.CharacterRoleGiver());
         ChangeState(GameState.CharacterExit);
     }
 
     private void CharacterExit()
     {
         //character exit animation
-        CharacterDataList.Remove(_currentCharacter);
+        CharacterDataList.Remove(CurrentCharacter);
         var characterController = _currentCharacterGameObject.GetComponent<CharacterController>();
         if (characterController!=null)
             characterController.CharacterExitAnimation();
@@ -383,7 +390,7 @@ public class GameManager : MonoBehaviour
     {
         const float secondsToWait = 2f;
         yield return new WaitForSeconds(secondsToWait);
-        UIGaugesReset();
+        UIGaugesReset(Vector3.zero);
         ChangeState(GameState.CharacterSpawn);
     }
     

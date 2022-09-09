@@ -15,3 +15,6 @@ MonoBehaviour:
   CharacterName: Fabrice
   CharacterPredefinedRole: 1
   CharacterSprite: {fileID: 21300000, guid: 968a9e6ea00144842b276797524a6d30, type: 3}
+  DesignBaseValue: 0
+  ArtBaseValue: 0
+  ProgrammingBaseValue: 20

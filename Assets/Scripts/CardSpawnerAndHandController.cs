@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -34,7 +35,7 @@ public class CardSpawnerAndHandController : MonoBehaviour
     private float _middleCardDetailedCardOffsetPositionY = 4f;
 
     private List<Card> _inHandCardList = new List<Card>();
-    private List<Card> _cardOnSlots = new List<Card>();
+    private List<Card> _cardOnSlotsList = new List<Card>();
 
     private void Start()
     {
@@ -99,6 +100,9 @@ public class CardSpawnerAndHandController : MonoBehaviour
             startOffsetY -= 2f;
             animationSpeed += .3f;
             
+            //reference
+            cardSelectAnimationComponent.GameManager = _gameManager;
+            
             //associate data with card description text&image
             cardComponent.CardSetup(_spawningCardData);
         }
@@ -159,7 +163,7 @@ public class CardSpawnerAndHandController : MonoBehaviour
         }
     }
     
-    public void TakeOffCard(Card cardToTakeOff, Vector3 cardSpotPosition)
+    public void TakeOffCardFromHandToSpot(Card cardToTakeOff, Vector3 cardSpotPosition)
     {
         //take off and move card
         CardAnimation spawnerCardComponent = cardToTakeOff.gameObject.GetComponent<CardAnimation>();
@@ -170,7 +174,7 @@ public class CardSpawnerAndHandController : MonoBehaviour
         cardToTakeOff.transform.rotation = Quaternion.Euler(Vector3.zero);
 
         _inHandCardList.Remove(cardToTakeOff);
-        _cardOnSlots.Add(cardToTakeOff);
+        _cardOnSlotsList.Add(cardToTakeOff);
 
         _currentNumberOfCardInHand--;
 
@@ -184,19 +188,71 @@ public class CardSpawnerAndHandController : MonoBehaviour
         {
             card.CardAnimationComponent.CardExit();
         }
-        foreach (var card in _cardOnSlots)
+        foreach (var card in _cardOnSlotsList)
         {
             card.CardAnimationComponent.CardExit();
         }
-        _cardOnSlots.Clear();
+        _cardOnSlotsList.Clear();
         _inHandCardList.Clear();
         AvailableCardList.Clear();
         
+        ResetAllSpotIsTakenToFalse();
+    }
+
+    private void ResetAllSpotIsTakenToFalse()
+    {
         //spots
         foreach (var cardSpotController in _gameManager.CardSpotControllerList)
         {
             cardSpotController.isTaken = false;
         }
     }
+
+    public void TakeOneSpotCardBackToHand(Card card)
+    {
+        //make spot istaken false
+        
+
+        //re-add card in handlist and take it off from spotlist
+
+        //animate card back to the hand then hand position reset with new card
+
+        //gauge adjust without card effet
+    }
     
+    public void TakeAllSpotsCardsBackToHand()
+    {
+        //make all spot istaken false
+        ResetAllSpotIsTakenToFalse();
+        
+        //re-add cards in handlist and take them off from spotlist + create a temp list with card to move
+        var tempCardList = new List<Card>();
+        foreach (var cardOnSlot in _cardOnSlotsList)
+        {
+            _inHandCardList.Add(cardOnSlot);
+            tempCardList.Add(cardOnSlot);
+            _cardOnSlotsList.Remove(cardOnSlot);
+        }
+        
+        //animate cards back to the hand and reset hand shuffle position
+        float moveAnimSpeed = .5f;
+        var position = _inHandCardList.FirstOrDefault().transform.position;
+        foreach (var card in tempCardList)
+        {
+            card.transform.DOComplete();
+            moveAnimSpeed += 2f;
+            card.transform.DOMove(position, moveAnimSpeed);
+            card.GetComponent<Card>().isPlaced = false;
+        }
+        foreach (var card in _inHandCardList)
+        {
+            card.transform.DOComplete();
+            moveAnimSpeed += 2f;
+            card.transform.DOMove(position, moveAnimSpeed).OnComplete(CardRepositioning);
+        }
+
+        //reset gauges
+        _gameManager.UIGaugesReset();
+    }
+
 }

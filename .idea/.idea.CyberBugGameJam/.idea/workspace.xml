@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1515a1ed-6765-445b-a03c-9eb9b672cc27" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CyberBugGameJam/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CyberBugGameJam/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GaugePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GaugePrefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardSpawnerAndHandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardSpawnerAndHandController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-    </list>
+    <list default="true" id="1515a1ed-6765-445b-a03c-9eb9b672cc27" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +9,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Card.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/CharacterController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/CharacterData.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -33,14 +26,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "rider.run.widget.enabled.cache": "false",
     "settings.editor.selected.configurable": "reference.idesettings.emmet",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="E:\Unity\Unity 2021.3.5f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity2020\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\mbenaissa\Documents\CyberBugJamGame\CyberBugGameJam -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\mbenaissa\Documents\CyberBugJamGame\CyberBugGameJam" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -79,6 +71,7 @@
       <workItem from="1662626716612" duration="17510000" />
       <workItem from="1662652611986" duration="1742000" />
       <workItem from="1662671727866" duration="15763000" />
+      <workItem from="1662707068592" duration="6026000" />
     </task>
     <servers />
   </component>

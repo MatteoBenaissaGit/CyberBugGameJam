@@ -8,10 +8,14 @@ public class CardAnimation : MonoBehaviour
 
 {
     // Show and hide Description Variables
+    [Header("Detailed Card")]
     public GameObject DetailedCard;
     public float CardDetailedOffsetX = 0;
     public float DetailedCardPositionY = 0;
+    
+    [Header("Variables")]
     public bool IsSelected = true;
+    public int OrderInLayerBase = 3;
     private float basePositionX;
 
     //move animation
@@ -42,6 +46,11 @@ public class CardAnimation : MonoBehaviour
         if (IsSelected || _cardCompenent.isPlaced) return;
         IsSelected = true;
         
+        //sprite to front
+        var OrderInLayerToFront = OrderInLayerBase + 1;
+        _cardCompenent.CardImageSpriteRenderer.sortingOrder = OrderInLayerToFront;
+        _cardCompenent.CardOutlineSpriteRenderer.sortingOrder = OrderInLayerToFront;
+        
         //detailed card offset
         var position = DetailedCard.transform.position;
         DetailedCard.transform.position = new Vector3(basePositionX + CardDetailedOffsetX, DetailedCardPositionY, position.z);
@@ -70,6 +79,11 @@ public class CardAnimation : MonoBehaviour
     public void CardDeselect() 
     {
         IsSelected = false;
+        
+        //sprite to front
+        var OrderInLayerToBack = OrderInLayerBase - 1;
+        _cardCompenent.CardImageSpriteRenderer.sortingOrder = OrderInLayerToBack;
+        _cardCompenent.CardOutlineSpriteRenderer.sortingOrder = OrderInLayerToBack;
         
         //guard if already placed
         if (_cardCompenent.isPlaced || !GameManager.CanSelectCards) return;

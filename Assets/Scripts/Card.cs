@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +10,12 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     [Header("Card")]
-    public SpriteRenderer CardSpriteRenderer;
+    public SpriteRenderer CardImageSpriteRenderer;
+    public SpriteRenderer CardOutlineSpriteRenderer;
     public TextMeshProUGUI CardNameTextMesh;
     public TextMeshProUGUI CardDescriptionTextMesh;
     public bool isPlaced = false;
+    public CardSpotController _cardSpot = null;
     public CardAnimation CardAnimationComponent;
     
     [Header("Values")] [Space(10)]
@@ -27,7 +30,7 @@ public class Card : MonoBehaviour
 
     public void CardSetup(CardData cardData)
     {
-        if (cardData.cardImageSprite != null) CardSpriteRenderer.sprite = cardData.cardImageSprite;
+        if (cardData.cardImageSprite != null) CardImageSpriteRenderer.sprite = cardData.cardImageSprite;
         CardNameTextMesh.text = cardData.CardName;
         CardDescriptionTextMesh.text = cardData.CardDescription;
     }

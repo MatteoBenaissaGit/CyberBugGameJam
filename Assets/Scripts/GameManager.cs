@@ -45,10 +45,14 @@ public class GameManager : MonoBehaviour
     [Header("CardSpot References")] 
     public List<CardSpotController> CardSpotControllerList = new List<CardSpotController>();
 
-    [Header("Character Reference")]
+    [Header("Character References")]
     [SerializeField] private GameObject _characterPrefab;
     [SerializeField] private Transform _characterTransformPosition;
     private GameObject _currentCharacterGameObject;
+
+    [Header("Card button References")] 
+    [SerializeField] private Button _cardConfirmButton;
+    [SerializeField] private Button _cardCancelButton;
 
     [Header("Debug")] 
     [SerializeField] private GameState _gameState;
@@ -62,13 +66,26 @@ public class GameManager : MonoBehaviour
     {
         UIGaugesReset();
         UITextReset();
+        UIButtonReset();
         ChangeState(GameState.Start);
         
         //references
         _cardSpawnerAndHandController = gameObject.GetComponent<CardSpawnerAndHandController>();
+        
+        //card button
+        _cardConfirmButton.onClick.AddListener(CardConfirm);
+        _cardCancelButton.onClick.AddListener(CardCancel);
+        _cardConfirmButton.gameObject.SetActive(false);
+        _cardCancelButton.gameObject.SetActive(false);
     }
 
-    private void UIGaugesReset()
+    private void OnDestroy()
+    {
+        _cardConfirmButton.onClick.RemoveListener(CardConfirm);
+        _cardCancelButton.onClick.RemoveListener(CardCancel);
+    }
+
+    public void UIGaugesReset()
     {
         const float fillSpeed = .2f;
         //gauges
@@ -92,6 +109,13 @@ public class GameManager : MonoBehaviour
         _designerListTextMeshPro.text = "";
         _artistListTextMeshPro.text = "";
         _programmerListTextMeshPro.text = "";
+    }
+
+    private void UIButtonReset()
+    {
+        //buttons card
+        _cardConfirmButton.gameObject.transform.localScale = Vector3.zero;
+        _cardCancelButton.gameObject.transform.localScale = Vector3.zero;
     }
 
     private void ChangeState(GameState gameState)
@@ -180,8 +204,6 @@ public class GameManager : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void CardSelectionAndActivation()
     {
-        if (!CanSelectCards) return;
-        
         Card cardComponent = null;
         CardAnimation cardAnimationComponent = null;
         
@@ -197,8 +219,15 @@ public class GameManager : MonoBehaviour
                 cardComponent = hit.collider.GetComponent<Card>();
                 cardAnimationComponent = hit.collider.GetComponent<CardAnimation>();
 
-                //guard if card already palced
-                if (cardComponent.isPlaced) return;
+                //guard if card already placed or cant be selected
+                if (cardComponent.isPlaced || !CanSelectCards)
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        _cardSpawnerAndHandController.TakeOneSpotCardBackToHand(cardComponent);
+                    }
+                    return;
+                }
                 
                 //card select
                 cardAnimationComponent.GameManager = this;
@@ -255,7 +284,8 @@ public class GameManager : MonoBehaviour
             if (CardSpotControllerList.Count > 0)
             {
                 CardSpotController cardSpot = CardSpotControllerList.OrderBy(spot => spot.isTaken).FirstOrDefault();
-                _cardSpawnerAndHandController.TakeOffCard(cardComponent, cardSpot!.Position);
+                _cardSpawnerAndHandController.TakeOffCardFromHandToSpot(cardComponent, cardSpot!.Position);
+                cardComponent._cardSpot = cardSpot;
                 cardSpot.isTaken = true;
             }
 
@@ -266,14 +296,45 @@ public class GameManager : MonoBehaviour
         if (_currentNumberOfCardSelected >= _numberOfCardsRequiredPerCharacter)
         {
             CanSelectCards = false;
-            StartCoroutine(EndCharacterWithRoleAttribution());
+            StartCoroutine(MakeCardButtonsAppears());
         }
     }
 
-    private IEnumerator EndCharacterWithRoleAttribution()
+    private IEnumerator MakeCardButtonsAppears()
     {
-        const float seconds = 3f;
+        const float seconds = 2f;
         yield return new WaitForSeconds(seconds);
+        _cardConfirmButton.gameObject.SetActive(true);
+        _cardCancelButton.gameObject.SetActive(true);
+        
+        //anim
+        const float animSpeed = .5f;
+        _cardConfirmButton.gameObject.transform.DOScale(Vector3.one, animSpeed);
+        _cardCancelButton.gameObject.transform.DOScale(Vector3.one, animSpeed);
+    }
+
+    private void CardConfirm()
+    {
+        MakeCardButtonDisappear();
+        EndCharacterWithRoleAttribution();
+    }
+
+    private void CardCancel()
+    {
+        MakeCardButtonDisappear();
+        _cardSpawnerAndHandController.TakeAllSpotsCardsBackToHand();
+        ChangeState(GameState.WaitingForInput);
+    }
+
+    private void MakeCardButtonDisappear()
+    {
+        const float animSpeed = .2f;
+        _cardConfirmButton.gameObject.transform.DOScale(Vector3.zero, animSpeed).OnComplete(UIButtonReset);
+        _cardCancelButton.gameObject.transform.DOScale(Vector3.zero, animSpeed).OnComplete(UIButtonReset);
+    }
+
+    private void EndCharacterWithRoleAttribution()
+    {
         ChangeState(GameState.CharacterRoleAttribution);
     }
 

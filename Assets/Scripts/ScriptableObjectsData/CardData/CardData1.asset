@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardName: Card1
   CardDescription: card1 description
-  cardImageSprite: {fileID: 0}
+  cardImageSprite: {fileID: 21300000, guid: bf302344920623a449f8bd28078c4eda, type: 3}
   DesignValue: 12
   ArtValue: 25
   ProgrammingValue: 3

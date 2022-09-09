@@ -49,8 +49,7 @@ public class CardAnimation : MonoBehaviour
         //sprite to front
         var OrderInLayerToFront = OrderInLayerBase + 1;
         _cardCompenent.CardImageSpriteRenderer.sortingOrder = OrderInLayerToFront;
-        _cardCompenent.CardOutlineSpriteRenderer.sortingOrder = OrderInLayerToFront;
-        
+
         //detailed card offset
         var position = DetailedCard.transform.position;
         DetailedCard.transform.position = new Vector3(basePositionX + CardDetailedOffsetX, DetailedCardPositionY, position.z);
@@ -83,8 +82,7 @@ public class CardAnimation : MonoBehaviour
         //sprite to front
         var OrderInLayerToBack = OrderInLayerBase - 1;
         _cardCompenent.CardImageSpriteRenderer.sortingOrder = OrderInLayerToBack;
-        _cardCompenent.CardOutlineSpriteRenderer.sortingOrder = OrderInLayerToBack;
-        
+
         //guard if already placed
         if (_cardCompenent.isPlaced || !GameManager.CanSelectCards) return;
         

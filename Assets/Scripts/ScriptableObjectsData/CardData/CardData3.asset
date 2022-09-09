@@ -15,6 +15,6 @@ MonoBehaviour:
   CardName: Card3
   CardDescription: card3 description
   cardImageSprite: {fileID: 0}
-  DesignValue: 5
+  DesignValue: -15
   ArtValue: 15
   ProgrammingValue: 23

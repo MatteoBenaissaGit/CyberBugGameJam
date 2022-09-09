@@ -16,14 +16,14 @@ public class RoleGaugeController : MonoBehaviour
 
     private Vector2 GaugesLenghtsValues()
     {
-        var designCount = _gameManager.CharactersDesignerList.Count == 0 ? 1 : _gameManager.CharactersDesignerList.Count;
-        var artCount = _gameManager.CharactersArtistList.Count == 0 ? 1 : _gameManager.CharactersArtistList.Count;
-        var programmerCount = _gameManager.CharactersProgrammerList.Count == 0 ? 1 : _gameManager.CharactersProgrammerList.Count;
+        float designCount = 1 +  _gameManager.CharactersDesignerList.Count;
+        float artCount = 1 + _gameManager.CharactersArtistList.Count;
+        float programmerCount = 1 + _gameManager.CharactersProgrammerList.Count;
         
-        var totalNumberOfCharacters = designCount + artCount + programmerCount;
-        
-        var designPercentage =  (designCount / totalNumberOfCharacters)/100;
-        var artPercentage = (designPercentage + (artCount / totalNumberOfCharacters))/100;
+        float totalNumberOfCharacters = designCount + artCount + programmerCount;
+
+        float designPercentage =  (designCount / totalNumberOfCharacters);
+        float artPercentage = (designPercentage + (artCount / totalNumberOfCharacters));
         
         return new Vector2(designPercentage, artPercentage);
     }
@@ -31,7 +31,6 @@ public class RoleGaugeController : MonoBehaviour
     public void UpdateRoleGauges()
     {
         var gaugeVector = GaugesLenghtsValues();
-        print(gaugeVector);
         const float animSpeed = .5f;
         _designRoleGauge.DOFillAmount(gaugeVector.x, animSpeed);
         _artRoleGauge.DOFillAmount(gaugeVector.y, animSpeed);

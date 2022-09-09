@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite _tooMuchArtistEndSprite;
     [SerializeField] private Sprite _tooMuchProgrammerEndSprite;
     [SerializeField] private Sprite _perfectlyBalancedEndSprite;
+    
+    [Header("Audio Source Reference")]
+    [SerializeField] private AudioSource _audioSource;
 
     [Header("Debug")] 
     [SerializeField] private GameState _gameState;
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
         UIButtonReset();
         UpdateRoleListsVisual();
         ChangeState(GameState.Start);
+        PlayMusic();
         
         //references
         _cardSpawnerAndHandController = gameObject.GetComponent<CardSpawnerAndHandController>();
@@ -83,6 +87,11 @@ public class GameManager : MonoBehaviour
         _cardCancelButton.onClick.AddListener(CardCancel);
         _cardConfirmButton.gameObject.SetActive(false);
         _cardCancelButton.gameObject.SetActive(false);
+    }
+    
+    private void PlayMusic()
+    {
+        _audioSource.Play();    
     }
 
     private void OnDestroy()

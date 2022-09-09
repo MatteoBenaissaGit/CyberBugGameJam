@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CardSelectAnimation : MonoBehaviour
+public class CardAnimation : MonoBehaviour
 
 {
     // Show and hide Description Variables
@@ -14,26 +14,32 @@ public class CardSelectAnimation : MonoBehaviour
     public bool IsSelected = true;
     private float basePositionX;
 
-    // Move card Variables
-    [SerializeField] private Transform _movingCard;
-    public Transform TargetSpot;
-    [SerializeField] private float _moveTime; 
-    
     //move animation
     const float moveRangeY = .2f;
-    const float moveSpeed = .2f;
+    const float moveSpawnSpeed = .2f;
+    private float slerpForce = .5f;
     
     //references
     [Header("References")]
     public GameManager GameManager;
 
-    void Start() {
+    private Card _cardCompenent;
+
+    private void Start() 
+    {
         DetailedCard.SetActive(false);
         basePositionX = transform.position.x;
+        _cardCompenent = GetComponent<Card>();
+    }
+
+    public void MoveCardToTargetPosition(Vector3 targetSpotPosition) 
+    {
+        const float moveAnimationTime = 1f;
+        transform.DOMove(targetSpotPosition, moveAnimationTime);
     }
 
     public void CardSelect() {
-        if (IsSelected) return;
+        if (IsSelected || _cardCompenent.isPlaced) return;
         IsSelected = true;
         
         //detailed card offset
@@ -51,7 +57,7 @@ public class CardSelectAnimation : MonoBehaviour
         transform.DOComplete();
         Vector3 movePositionSelect =
             new Vector3(transform.position.x, transform.position.y + moveRangeY, transform.position.z);
-        transform.DOMove(movePositionSelect, moveSpeed);
+        transform.DOMove(movePositionSelect, moveSpawnSpeed);
         
         DetailedCard.SetActive(true);
     }
@@ -61,14 +67,17 @@ public class CardSelectAnimation : MonoBehaviour
         CardDeselect();
     }
 
-    private void CardDeselect() 
+    public void CardDeselect() 
     {
         IsSelected = false;
+        
+        //guard if already placed
+        if (_cardCompenent.isPlaced) return;
         
         transform.DOComplete();
         Vector3 movePositionSelect =
             new Vector3(transform.position.x, transform.position.y - moveRangeY, transform.position.z);
-        transform.DOMove(movePositionSelect, moveSpeed);
+        transform.DOMove(movePositionSelect, moveSpawnSpeed);
         
         DetailedCard.SetActive(false);
 
@@ -76,11 +85,17 @@ public class CardSelectAnimation : MonoBehaviour
             GameManager.TempGaugeReset();
     }
 
-    public void CardMove() {
-
-        _movingCard.DOMove(new Vector3(TargetSpot.localPosition.x,TargetSpot.localPosition.y,0),_moveTime);
-
+    public void CardExit()
+    {
+        const float exitMoveY = -3f;
+        const float exitMoveSpeed = .5f;
+        transform.DOComplete();
+        transform.DOMoveY(transform.position.y + exitMoveY, exitMoveSpeed).OnComplete(DestroyCard);
     }
 
+    private void DestroyCard()
+    {
+        Destroy(gameObject);
+    }
 
 }

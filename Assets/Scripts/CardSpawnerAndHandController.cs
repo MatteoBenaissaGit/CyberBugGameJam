@@ -1,19 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class SpawnerCard : MonoBehaviour
+public class CardSpawnerAndHandController : MonoBehaviour
 {
     [Header("Card")]
     public GameObject cardPrefabGameObject;
-    [Range(0,7)] public int numberofCardInHand;
+    [Range(0,7)] public int numberoOfCardInHand;
+    [SerializeField] [Range(0,7)] private int _currentNumberOfCardInHand;
     public List<CardData> AvailableCardList;
 
     [Header("Card placement")]
     [SerializeField] private int _offsetX = -1;
     [SerializeField] private float _offsetY = 0f;
     [SerializeField] private int _offsetZ = 0;
+
+    //game manager
+    private GameManager _gameManager;
     
     //card data
     private CardData _randomCardData;
@@ -27,22 +33,48 @@ public class SpawnerCard : MonoBehaviour
     private float _middleCardDetailedCardPositionY = 0;
     private float _middleCardDetailedCardOffsetPositionY = 4f;
 
-    public void CardSpawning()
+    private List<Card> _inHandCardList = new List<Card>();
+    private List<Card> _cardOnSlots = new List<Card>();
+
+    private void Start()
+    {
+        _gameManager = gameObject.GetComponent<GameManager>();
+    }
+
+    public void SetupCardsForNewCharacter()
+    {
+        SetupAvailableCardList();
+        CardSetup();
+    }
+    
+    private void SetupAvailableCardList()
+    {
+        _currentNumberOfCardInHand = numberoOfCardInHand;
+        AvailableCardList = _gameManager.CardDataList;
+        if (numberoOfCardInHand > AvailableCardList.Count) _currentNumberOfCardInHand = AvailableCardList.Count;
+    }
+
+    private void CardSetup()
     {
         var animationSpeed = .5f;
         var startOffsetY = -1.5f;
 
-        for(var i = 0; i < numberofCardInHand; i++)
+        for(var i = 0; i < _currentNumberOfCardInHand; i++)
         {
-            //card choice to spawn
+            //dataCard choice -> block cardData being chosen twice by only allowing cardData choice that haven't been chosen
             _spawningCardData = CardDataChoice();
+            while (!AvailableCardList.Contains(_spawningCardData)) {
+                _spawningCardData = CardDataChoice();
+            }
+            AvailableCardList.Remove(_spawningCardData);
 
             //card instantiate
             var endPosition = CardEndPosition(i);
             GameObject cardPrefab = Instantiate(cardPrefabGameObject, endPosition, Quaternion.identity);
             var cardComponent = cardPrefab.GetComponent<Card>();
+            _inHandCardList.Add(cardComponent);
             //detailed card position&rotation setup
-            var cardSelectAnimationComponent = cardPrefab.GetComponent<CardSelectAnimation>();
+            var cardSelectAnimationComponent = cardPrefab.GetComponent<CardAnimation>();
             var cardOffsetX = cardPrefab.transform.position.x / 3;
             cardSelectAnimationComponent.CardDetailedOffsetX = endPosition.w == 0 ? 0 : endPosition.w < 0 ? -cardOffsetX : cardOffsetX;
             cardSelectAnimationComponent.DetailedCardPositionY = _middleCardDetailedCardPositionY;
@@ -115,5 +147,54 @@ public class SpawnerCard : MonoBehaviour
         //the w in the Vector4 allows to know either the card is middle, left of right placed in the hand
     }
 
+    private void CardRepositioning()
+    {
+        for (int i = 0; i < _inHandCardList.Count; i++)
+        {
+            const float moveAnimationSpeed = .2f;
+            var newEndPosition = CardEndPosition(i);
+            _inHandCardList[i].transform.DOMove(newEndPosition, moveAnimationSpeed);
+        }
+    }
+    
+    public void TakeOffCard(Card cardToTakeOff, Vector3 cardSpotPosition)
+    {
+        //take off and move card
+        CardAnimation spawnerCardComponent = cardToTakeOff.gameObject.GetComponent<CardAnimation>();
+        spawnerCardComponent.MoveCardToTargetPosition(cardSpotPosition);
+        cardToTakeOff.isPlaced = true;
+        
+        //transform
+        cardToTakeOff.transform.rotation = Quaternion.Euler(Vector3.zero);
 
+        _inHandCardList.Remove(cardToTakeOff);
+        _cardOnSlots.Add(cardToTakeOff);
+
+        _currentNumberOfCardInHand--;
+
+        CardRepositioning();
+    }
+
+    public void RemoveCurrentHandCardAndSpawnNewHand()
+    {
+        //cards
+        foreach (var card in _inHandCardList)
+        {
+            card.CardAnimationComponent.CardExit();
+        }
+        foreach (var card in _cardOnSlots)
+        {
+            card.CardAnimationComponent.CardExit();
+        }
+        _cardOnSlots.Clear();
+        _inHandCardList.Clear();
+        AvailableCardList.Clear();
+        
+        //spots
+        foreach (var cardSpotController in _gameManager.CardSpotControllerList)
+        {
+            cardSpotController.isTaken = false;
+        }
+    }
+    
 }

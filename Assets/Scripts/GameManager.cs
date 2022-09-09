@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine.Events;
 using DG.Tweening;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CardSpawnerAndHandController))]
 public class GameManager : MonoBehaviour
 {
     [Header("Parameters")] 
@@ -24,9 +26,6 @@ public class GameManager : MonoBehaviour
     private List<CharacterData> _charactersArtistList = new List<CharacterData>();
     private List<CharacterData> _charactersProgrammerList = new List<CharacterData>();
 
-    [Header("References")] 
-    [SerializeField] private SpawnerCard _spawnerCard;
-    
     [Header("TextMesh References")]
     [SerializeField] private TextMeshProUGUI _designerListTextMeshPro;
     [SerializeField] private TextMeshProUGUI _artistListTextMeshPro;
@@ -44,18 +43,28 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image _programmingTempGauge;
 
     [Header("CardSpot References")] 
-    [SerializeField] private List<Transform> _cardSpotList = new List<Transform>();
+    public List<CardSpotController> CardSpotControllerList = new List<CardSpotController>();
+
+    [Header("Character Reference")]
+    [SerializeField] private GameObject _characterPrefab;
+    [SerializeField] private Transform _characterTransformPosition;
+    private GameObject _currentCharacterGameObject;
 
     [Header("Debug")] 
     [SerializeField] private GameState _gameState;
     [SerializeField] private CharacterData _currentCharacter;
 
     private bool _cardIsCurrentlySelected = false;
+    private CardSpawnerAndHandController _cardSpawnerAndHandController;
+    private bool _canSelectCards = true;
 
     private void Start()
     {
         UIReset();
         ChangeState(GameState.Start);
+        
+        //references
+        _cardSpawnerAndHandController = gameObject.GetComponent<CardSpawnerAndHandController>();
     }
 
     private void UIReset()
@@ -139,9 +148,17 @@ public class GameManager : MonoBehaviour
             print("no more character");
             //end the game
             ChangeState(GameState.End);
+            return;
         }
         
-        //Anim character
+        //setup character
+        _currentCharacterGameObject = Instantiate(_characterPrefab, _characterTransformPosition.position, Quaternion.identity);
+        CharacterController characterControllerComponent = _currentCharacterGameObject.GetComponent<CharacterController>();
+        characterControllerComponent.CharacterNameTextMesh.text = _currentCharacter.CharacterName;
+        if (_currentCharacter.CharacterSprite != null)
+            characterControllerComponent.CharacterSpriteRenderer.sprite = _currentCharacter.CharacterSprite;
+        //character animation
+        characterControllerComponent.CharacterSpawningAnimation();
 
         ChangeState(GameState.CardSpawn);
     }
@@ -149,17 +166,19 @@ public class GameManager : MonoBehaviour
     private void CardSpawn()
     {
         //card spawning animation (other script)
-        _spawnerCard.CardSpawning();
-        
-        //temporary ! step to the next state directly instead of waiting for the card spawn
+        _cardSpawnerAndHandController.SetupCardsForNewCharacter();
+
+        _canSelectCards = true;
         ChangeState(GameState.WaitingForInput);
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
     private void CardSelectionAndActivation()
     {
+        if (!_canSelectCards) return;
+        
         Card cardComponent = null;
-        CardSelectAnimation cardSelectAnimationComponent = null;
+        CardAnimation cardAnimationComponent = null;
         
         //card reveal if mouse over card
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -171,17 +190,22 @@ public class GameManager : MonoBehaviour
             if (hit.collider.GetComponent<Card>() != null)
             {
                 cardComponent = hit.collider.GetComponent<Card>();
-                cardSelectAnimationComponent = hit.collider.GetComponent<CardSelectAnimation>();
+                cardAnimationComponent = hit.collider.GetComponent<CardAnimation>();
+
+                //guard if card already palced
+                if (cardComponent.isPlaced) return;
                 
                 //card select
-                cardSelectAnimationComponent.GameManager = this;
-                cardSelectAnimationComponent.CardSelect();
-                cardSelectAnimationComponent.DetailedCard.transform.rotation = Quaternion.Euler(Vector3.zero);
+                cardAnimationComponent.GameManager = this;
+                cardAnimationComponent.CardSelect();
+                cardAnimationComponent.DetailedCard.transform.rotation = Quaternion.Euler(Vector3.zero);
                 CardSelectionGaugeTempShow(cardComponent);
 
                 //card activation if click
                 if (Input.GetMouseButtonDown(0))
                 {
+                    cardAnimationComponent.CardDeselect();
+                    cardComponent.isPlaced = true;
                     CardActivation(cardComponent);
                 }
             }
@@ -214,18 +238,38 @@ public class GameManager : MonoBehaviour
 
     private void CardActivation(Card cardComponent)
     {
-        _currentNumberOfCardSelected++;
-        
         //gauges modification
         _currentCharacter.AddValueToGauges(cardComponent.DesignValue,cardComponent.ArtValue,cardComponent.ProgrammerValue);
         GaugeAnimation();
+
+        //move card to selected card spot
+        CardAnimation ?cardSelectAnimationComponent = cardComponent.gameObject.GetComponent<CardAnimation>();
+        if (cardSelectAnimationComponent != null && _cardSpawnerAndHandController!=null)
+        {
+            //move card to spot
+            if (CardSpotControllerList.Count > 0)
+            {
+                CardSpotController cardSpot = CardSpotControllerList.OrderBy(spot => spot.isTaken).FirstOrDefault();
+                _cardSpawnerAndHandController.TakeOffCard(cardComponent, cardSpot!.Position);
+                cardSpot.isTaken = true;
+            }
+
+        }
         
         //check if the good amount of cards are selected
+        _currentNumberOfCardSelected++;
         if (_currentNumberOfCardSelected >= _numberOfCardsRequiredPerCharacter)
-            ChangeState(GameState.CharacterRoleAttribution);
-        
-        //move card to selected card spot
-        
+        {
+            _canSelectCards = false;
+            StartCoroutine(EndCharacterWithRoleAttribution());
+        }
+    }
+
+    private IEnumerator EndCharacterWithRoleAttribution()
+    {
+        const float seconds = 3f;
+        yield return new WaitForSeconds(seconds);
+        ChangeState(GameState.CharacterRoleAttribution);
     }
 
     private void GaugeAnimation()
@@ -256,14 +300,24 @@ public class GameManager : MonoBehaviour
     private void CharacterExit()
     {
         //character exit animation
-        
         CharacterDataList.Remove(_currentCharacter);
+        var characterController = _currentCharacterGameObject.GetComponent<CharacterController>();
+        if (characterController!=null)
+            characterController.CharacterExitAnimation();
         
         //remove cards
+        _cardSpawnerAndHandController.RemoveCurrentHandCardAndSpawnNewHand();
         
-        ChangeState(GameState.CharacterSpawn);
+        //next step
+        StartCoroutine(SpawnANewCharacter());
     }
 
+    private IEnumerator SpawnANewCharacter()
+    {
+        const float secondsToWait = 2f;
+        yield return new WaitForSeconds(secondsToWait);
+        ChangeState(GameState.CharacterSpawn);
+    }
     
     private void AddCharacterToList(CharacterData characterData, Role? role)
     {

@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc4dd571ce79d4e4386c0373e8e7579e, type: 3}
-  m_Name: CharacterDataTest
+  m_Name: CharacterData1
   m_EditorClassIdentifier: 
-  CharacterName: TestName
-  CharacterRole: 0
-  DesignerGauge: 0
-  ArtistGauge: 0
-  ProgrammerGauge: 0
+  CharacterName: Roberto
+  CharacterPredefinedRole: 0
+  CharacterSprite: {fileID: 21300000, guid: bf9de7e7ec1f47a4c8e575d2cea10cf3, type: 3}

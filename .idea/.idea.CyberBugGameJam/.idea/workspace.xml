@@ -8,6 +8,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ButtonScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Card.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RoleGaugeController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -72,7 +73,7 @@
       <workItem from="1662626716612" duration="17510000" />
       <workItem from="1662652611986" duration="1742000" />
       <workItem from="1662671727866" duration="15763000" />
-      <workItem from="1662707068592" duration="20021000" />
+      <workItem from="1662707068592" duration="21350000" />
     </task>
     <servers />
   </component>

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14134127ae7130d488acca1c3eb64a1a, type: 3}
   m_Name: "CardData_Bi\xE8re"
   m_EditorClassIdentifier: 
-  CardName: "Bi\xE8re"
+  CardName: Biere
   CardDescription: "La boisson des Dieux qui offre un repos bien m\xE9rit\xE9...
     et un sacr\xE9 mal de t\xEAte "
   cardImageSprite: {fileID: 21300000, guid: c6553cab426b43f4aa6a544bbf5a43d7, type: 3}

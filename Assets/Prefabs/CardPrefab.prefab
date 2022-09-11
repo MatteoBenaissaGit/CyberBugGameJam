@@ -38,8 +38,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.0027, y: -0.038}
-  m_SizeDelta: {x: 6.3395, y: 3.6331}
+  m_AnchoredPosition: {x: -0.013, y: -0.0022}
+  m_SizeDelta: {x: 18.3344, y: 10.0202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1041027506111815173
 Canvas:
@@ -127,8 +127,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6367818727532164589}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11000001, y: 2.5099998, z: -5.7884426}
-  m_LocalScale: {x: 3.9036548, y: 2.2673087, z: 1}
+  m_LocalPosition: {x: -0, y: 2.46, z: -5.7884426}
+  m_LocalScale: {x: 1.4, y: 0.83000004, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 315028716743299389}
@@ -176,12 +176,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c735262e29dd31b4fb77cba645841e2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 3.18, y: 3.07}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -237,7 +237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardImageSpriteRenderer: {fileID: 7888242826529786141}
-  CardOutlineSpriteRenderer: {fileID: 7888242826529786141}
   CardNameTextMesh: {fileID: 7900746644836148017}
   CardDescriptionTextMesh: {fileID: 1282003419305505623}
   isPlaced: 0
@@ -430,8 +429,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0695, y: -0.4876}
-  m_SizeDelta: {x: 5.5355, y: 2.5625}
+  m_AnchoredPosition: {x: 0.046, y: -1.2603}
+  m_SizeDelta: {x: 17.145, y: 7.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1573329208781695172
 CanvasRenderer:
@@ -471,15 +470,15 @@ MonoBehaviour:
 
     Example.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5c65b75101126794d982a9840b47e3c4, type: 2}
+  m_sharedMaterial: {fileID: -5422714505678725912, guid: 5c65b75101126794d982a9840b47e3c4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4286295259
+  m_fontColor: {r: 0.8584906, g: 0.67362654, b: 0.4818886, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -496,8 +495,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.4
-  m_fontSizeBase: 0.4
+  m_fontSize: 1.12
+  m_fontSizeBase: 1.12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -573,8 +572,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.06949997, y: 1.3050995}
-  m_SizeDelta: {x: 5.5355, y: 1.0229}
+  m_AnchoredPosition: {x: 0, y: 3.75}
+  m_SizeDelta: {x: 18.334, y: 2.521}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &359856644315347918
 CanvasRenderer:
@@ -606,15 +605,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Card Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4b8d0a463e78d024ead3e18d3a2ee80a, type: 2}
+  m_sharedMaterial: {fileID: 1621318056315745233, guid: 4b8d0a463e78d024ead3e18d3a2ee80a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4288725979
+  m_fontColor: {r: 0.8584906, g: 0.7655897, b: 0.62767, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -631,15 +630,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.72
-  m_fontSizeBase: 0.72
+  m_fontSize: 1.5
+  m_fontSizeBase: 1.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

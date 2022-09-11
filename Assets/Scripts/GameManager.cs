@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         }
         
         //setup character
-        _currentCharacterGameObject = Instantiate(_characterPrefab, _characterTransformPosition.position, Quaternion.identity);
+        _currentCharacterGameObject = Instantiate(_characterPrefab, _characterTransformPosition);
         CharacterController characterControllerComponent = _currentCharacterGameObject.GetComponent<CharacterController>();
         characterControllerComponent.CharacterNameTextMesh.text = CurrentCharacter.CharacterName;
         if (CurrentCharacter.CharacterSprite != null)
@@ -325,8 +325,9 @@ public class GameManager : MonoBehaviour
         
         //anim
         const float animSpeed = .5f;
-        _cardConfirmButton.gameObject.transform.DOScale(Vector3.one, animSpeed);
-        _cardCancelButton.gameObject.transform.DOScale(Vector3.one, animSpeed);
+        Vector3 size = new Vector3(.5f, .5f, .5f);
+        _cardConfirmButton.gameObject.transform.DOScale(size, animSpeed);
+        _cardCancelButton.gameObject.transform.DOScale(size, animSpeed);
     }
 
     private void CardConfirm()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14134127ae7130d488acca1c3eb64a1a, type: 3}
   m_Name: "CardData_Bible de r\xE8gle"
   m_EditorClassIdentifier: 
-  CardName: "Bible de r\xE8gle  "
+  CardName: 'Bible de regle  '
   CardDescription: "Un lourd pav\xE9 manuscrit que certainement personne ne lira
     de toute sa vie "
   cardImageSprite: {fileID: 21300000, guid: 093119f8e35af1d4b969cbe1f4c8ee9e, type: 3}

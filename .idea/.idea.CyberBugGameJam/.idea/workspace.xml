@@ -1,17 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1515a1ed-6765-445b-a03c-9eb9b672cc27" name="Changes" comment="" />
+    <list default="true" id="1515a1ed-6765-445b-a03c-9eb9b672cc27" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CyberBugGameJam/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CyberBugGameJam/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Aurelien.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Aurelien.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Carte_Code.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Carte_Code.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Carte_Dodo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Carte_Dodo.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Carte_Unity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Carte_Unity.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Colo_Tarot_Gregory.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Colo_Tarot_Gregory.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Colo_Tarot_Vincent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Colo_Tarot_Vincent.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Geoffrey.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Geoffrey.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Geoffrey_colo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Geoffrey_colo.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Jeremy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Jeremy.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Lammakian.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Lammakian.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Michelle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Michelle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Olivier.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Olivier.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Bible_de_Regles.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Bible_de_Regles.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Biere.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Biere.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Monster.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Monster.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Surmenage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Surmenage.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Tablette_Graph (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Card/Tarot_Card_Tablette_Graph (1).png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso10.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso4.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso5.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso6.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso7.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso8.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Chara/Perso9.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CardPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/CardPrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GaugePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GaugePrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MattScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MattScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/Sparkle.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/Sparkle.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/Sparkle2.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/Sparkle2.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/glow1_ADD.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/glow1_ADD.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/lightning_3x3_ADD.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/lightning_3x3_ADD.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/magic_orb2_ADD.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/magic_orb2_ADD.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/ring_ADD.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/ring_ADD.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/sphereshield.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/sphereshield.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/wave3_ADD.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Materials/wave3_ADD.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Models.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Models/ETFX_Shield.FBX" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Models/ETFX_Shield.FBX.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/Bubbles.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/Bubbles.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/Lightning.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/Lightning.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/OrbBlue.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/OrbBlue.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/OrbGreen.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/OrbGreen.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/OrbRed.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/OrbRed.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/Sparkles.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Systems/Sparkles.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Glow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Glow.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Glow2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Glow2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Ring.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Ring.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleBig.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleBig.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleBigSsContour.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleBigSsContour.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleThin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleThin.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleThinSsContour.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/SparkleThinSsContour.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Wave.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/Wave.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/lightning_v2_3x3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/Textures/lightning_v2_3x3.png.meta" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ButtonScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Card.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RoleGaugeController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/CharacterData.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -22,19 +138,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "reference.idesettings.emmet",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;rider.run.widget.enabled.cache&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.idesettings.emmet&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity2020\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="E:\Unity\Unity 2021.3.5f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\mbenaissa\Documents\CyberBugJamGame\CyberBugGameJam -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\mbenaissa\Documents\CyberBugJamGame\CyberBugGameJam" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -74,6 +191,8 @@
       <workItem from="1662652611986" duration="1742000" />
       <workItem from="1662671727866" duration="15763000" />
       <workItem from="1662707068592" duration="21654000" />
+      <workItem from="1662818307385" duration="628000" />
+      <workItem from="1662824670175" duration="656000" />
     </task>
     <servers />
   </component>
